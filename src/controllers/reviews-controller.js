@@ -6,15 +6,6 @@ import User from "../schemas/usersMongo.js";
 
 const getAllReviews = async (req, res) => {
   const reviews = await Review.find();
-  const _id = "6527cec9deb0ff3c4723fc3c";
-  // const users = await User.find({ _id }).populate("name avatarURL");
-  const result = reviews.map(async (review) => {
-    console.log(review.owner);
-    //   const { name, avatarURL } = await User.find({ owner: review.owner });
-    //   const result = { ...review, name, avatarURL };
-    //   console.log(result);
-  });
-  console.log(users);
   res.json(reviews);
 };
 
