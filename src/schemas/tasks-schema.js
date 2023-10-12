@@ -1,24 +1,17 @@
-import { Schema, model } from "mongoose";
-import { handleMongooseError, runValidateAtUpdate } from "./mongooseHooks.js";
+import Joi from "joi";
+import { categoryList, priorityList } from "../models/Task.js";
 
-const taskSchema = new Schema(
-	{
-		title: { type: String, required: [true, "Set title for your task"] },
-		start: { type: String, required: true },
-		end: { type: String, required: true },
-		priority: { type: String, required: true },
-		date: { type: String, required: true },
-		category: { type: String, required: true },
-	},
-	{ versionKey: false, timestamps: false }
-);
+const taskSchemaValidation = Joi.object({
+	title: Joi.string().min(1).max(250).required(),
+	start: Joi.string().required(),
+	end: Joi.string().required(),
+	priority: Joi.string()
+		.valid(...priorityList)
+		.required(),
+	date: Joi.string().required(),
+	category: Joi.string()
+		.valid(...categoryList)
+		.required(),
+});
 
-taskSchema.post("save", handleMongooseError);
-
-taskSchema.pre("findOneAndUpdate", runValidateAtUpdate);
-
-taskSchema.post("findOneAndUpdate", handleMongooseError);
-
-const Task = model("tasks", taskSchema);
-
-export default Task;
+export default { taskSchemaValidation };
