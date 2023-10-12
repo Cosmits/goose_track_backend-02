@@ -3,9 +3,10 @@ import logger from "morgan";
 import cors from "cors";
 import path from "path";
 
-import authRouter from "./src/routes/api/auth-router.js";
+// import authRouter from "./src/routes/api/auth-router.js";
 import contactsRouter from "./src/routes/api/contacts-router.js";
 import reviewsRouter from "./src/routes/api/reviews-roter.js";
+import authRouter from "./src/routes/api/auth-router.js";
 
 const app = express();
 
@@ -19,6 +20,8 @@ app.use("/public", express.static(path.join("./public")));
 app.use("/api/users", authRouter);
 app.use("/api/contacts", contactsRouter);
 app.use("/reviews", reviewsRouter);
+
+app.use("/users", authRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
