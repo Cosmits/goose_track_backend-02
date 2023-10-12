@@ -46,7 +46,7 @@ describe('auth test', () => {
       password: 'E1password',
     }
 
-    const res = await request(app).post('/api/users/register').send(req);
+    const res = await request(app).post('/users/register').send(req);
     expect(res.statusCode).toBe(201);
     expect(res.body.email).toBe(req.email);
     expect(res.body.subscription).toEqual(expect.any(String));
@@ -67,7 +67,7 @@ describe('auth test', () => {
       password: 'E1password',
     }
 
-    const res = await request(app).post('/api/users/register').send(req);
+    const res = await request(app).post('/users/register').send(req);
     expect(res.statusCode).toBe(409);
     expect(res.body.message).toEqual(expect.stringContaining('Email in use'));
 
@@ -81,7 +81,7 @@ describe('auth test', () => {
       password: 'password',
     }
 
-    const res = await request(app).post('/api/users/register').send(req);
+    const res = await request(app).post('/users/register').send(req);
     expect(res.statusCode).toBe(400);
     expect(res.body.message).toEqual(expect.stringContaining('password'));
     expect(res.body.message).toEqual(expect.stringContaining('fails to match the required'));
@@ -93,14 +93,14 @@ describe('auth test', () => {
       password: 'password',
     }
 
-    const res = await request(app).post('/api/users/register').send(req);
+    const res = await request(app).post('/users/register').send(req);
     expect(res.statusCode).toBe(400);
     expect(res.body.message).toEqual(expect.stringContaining('email'));
     expect(res.body.message).toEqual(expect.stringContaining('fails to match the required'));
   })
 
   test('register - empty request body', async () => {
-    const res = await request(app).post('/api/users/register');
+    const res = await request(app).post('/users/register');
     expect(res.statusCode).toBe(400);
     expect(res.body.message).toEqual(expect.stringContaining('missing required email field'));
   })
@@ -114,7 +114,7 @@ describe('auth test', () => {
       password: 'E1password',
     }
 
-    const res = await request(app).post('/api/users/login').send(req);
+    const res = await request(app).post('/users/login').send(req);
     expect(res.statusCode).toBe(200);
     expect(res.body.status).toBe('OK');
     currToken = res.body.token;
@@ -137,7 +137,7 @@ describe('auth test', () => {
       password: 'E1password11',
     }
 
-    const res = await request(app).post('/api/users/login').send(req);
+    const res = await request(app).post('/users/login').send(req);
     expect(res.statusCode).toBe(401);
     expect(res.body.message).toBe('Email or password is wrong');
 
@@ -151,7 +151,7 @@ describe('auth test', () => {
       password: 'password',
     }
 
-    const res = await request(app).post('/api/users/login').send(req);
+    const res = await request(app).post('/users/login').send(req);
     expect(res.statusCode).toBe(400);
     expect(res.body.message).toEqual(expect.stringContaining('password'));
     expect(res.body.message).toEqual(expect.stringContaining('fails to match the required'));
@@ -166,7 +166,7 @@ describe('auth test', () => {
       password: 'cos1mail.com',
     }
 
-    const res = await request(app).post('/api/users/login').send(req);
+    const res = await request(app).post('/users/login').send(req);
     expect(res.statusCode).toBe(400);
     expect(res.body.message).toEqual(expect.stringContaining('email'));
     expect(res.body.message).toEqual(expect.stringContaining('fails to match the required'));
@@ -174,7 +174,7 @@ describe('auth test', () => {
 
   test('login - empty request body', async () => {
 
-    const res = await request(app).post('/api/users/login');
+    const res = await request(app).post('/users/login');
     expect(res.statusCode).toBe(400);
     expect(res.body.message).toEqual(expect.stringContaining('missing required email field'));
   })
@@ -184,7 +184,7 @@ describe('auth test', () => {
 
     // console.log("🚀 ~ file: auth-router.test.js:190 ~ test ~ currToken:", currToken)
 
-    const res = await request(app).get('/api/users/current')
+    const res = await request(app).get('/users/current')
       .set('Authorization', `Bearer ${currToken}`);
 
     expect(res.statusCode).toBe(200);
@@ -199,7 +199,7 @@ describe('auth test', () => {
 
   test('current - wrong token', async () => {
 
-    const res = await request(app).get('/api/users/current')
+    const res = await request(app).get('/users/current')
       .set('Authorization', `Bearer e${currToken}e`);
 
     expect(res.statusCode).toBe(401);
@@ -210,7 +210,7 @@ describe('auth test', () => {
   
   test('logout - correct token', async () => {
 
-   const res = await request(app).post('/api/users/logout')
+   const res = await request(app).post('/users/logout')
       .set('Authorization', `Bearer ${currToken}`);
 
     expect(res.statusCode).toBe(204);
@@ -218,7 +218,7 @@ describe('auth test', () => {
 
   test('logout - wrong token', async () => {
 
-    const res = await request(app).post('/api/users/logout')
+    const res = await request(app).post('/users/logout')
       .set('Authorization', `Bearer e${currToken}e`);
 
     expect(res.statusCode).toBe(401);

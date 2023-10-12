@@ -5,24 +5,30 @@ import authenticate from '../../middleware/authenticate.js';
 import usersValidation from '../../middleware/validation/users-validation.js';
 import upload from '../../middleware/upload.js';
 
-const authRouter = Router();
+const usersRouter = Router();
 
-authRouter.post('/register', usersValidation.userValidate, userController.register);
+usersRouter.post('/register', usersValidation.userValidate, userController.register);
 
-authRouter.post('/login', usersValidation.userValidate, userController.login);
+usersRouter.post('/login', usersValidation.userValidate, userController.login);
 
-authRouter.get('/current', authenticate, userController.getCurrent);
+usersRouter.get('/current', authenticate, userController.getCurrent);
 
-authRouter.post('/logout', authenticate, userController.logout);
+usersRouter.post('/logout', authenticate, userController.logout);
 
-authRouter.patch('/subscription', authenticate, usersValidation.userSubscriptionValidate,
-  userController.subscriptionUpdate
-);
+usersRouter.patch('/avatars', authenticate, upload.single('avatar'), userController.updateAvatarUser)
 
-authRouter.patch('/avatars', authenticate, upload.single('avatar'), userController.updateAvatarUser)
+// usersRouter.get("/verify/:verificationToken", userController.verify);
 
-authRouter.get("/verify/:verificationToken", userController.verify);
+// usersRouter.post("/verify", usersValidation.userEmailValidate, userController.resendVerifyEmail);
 
-authRouter.post("/verify", usersValidation.userEmailValidate, userController.resendVerifyEmail);
 
-export default authRouter;
+
+
+// роутер для редагування полів в user-profile----------------
+
+usersRouter.patch("/edit", authenticate, usersValidation.userProfileValidate, userController.updateUserProfile)
+
+// роутер для запису додавання  юзера в user-profile
+// usersRouter.post("/user", authenticate, usersValidation.userProfileValidate, userController.addUserProfile)
+
+export default usersRouter;

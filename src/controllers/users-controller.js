@@ -41,7 +41,6 @@ const register = async (req, res) => {
     status: 'OK',
     code: 201,
     email: newUser.email,
-    subscription: newUser.subscription,
     avatarURL,
   });
 };
@@ -52,7 +51,7 @@ const login = async (req, res) => {
   const user = await User.findOne({ email });
   const passwordCompare = await bcrypt.compare(password, user.password)
 
-  if (!user.verify) throw HttpError(401, "Email not verify"); // throw HttpError(401, "Email or password invalid");
+  // if (!user.verify) throw HttpError(401, "Email not verify"); // throw HttpError(401, "Email or password invalid");
 
   if (!user || !passwordCompare) throw HttpError(401, 'Email or password is wrong')
 
@@ -75,13 +74,12 @@ const login = async (req, res) => {
 }
 
 const getCurrent = async (req, res) => {
-  const { email, subscription } = req.user
+  const { email } = req.user
 
   res.json({
     status: 'OK',
     code: 200,
     email,
-    subscription
   })
 }
 
@@ -92,17 +90,11 @@ const logout = async (req, res) => {
   res.status(204).json({
     status: 'No Content',
     code: 204,
+    message: "User successfully logout",
   })
 }
 
-const subscriptionUpdate = async (req, res) => {
-  const { _id } = req.user
-  const result = await User.findByIdAndUpdate(_id, req.body, {
-    new: true,
-  })
 
-  res.status(200).json(result)
-}
 
 const avatarsDir = path.join('public', 'avatars')
 
@@ -150,7 +142,7 @@ const resendVerifyEmail = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
 
-  if (!user) throw HttpError(404, "email not found")
+  if (!user) throw HttpError(404, "Email not found")
 
   if (user.verify) throw HttpError(400, "Email already verify")
 
@@ -169,13 +161,63 @@ const resendVerifyEmail = async (req, res) => {
 }
 
 
+// ------ Add user profile  controller--------------
+
+// const addUserProfile = async (req, res) =>{
+//   if (!req.user) {
+//     throw HttpError(401, "Not authorized")
+//     // return res.status(401).json({ message: "Not authorized" });
+//   }
+//   const {name, phone, email, birthday, skype} = req.body;
+//   const newUser = await User.create({ 
+//     name,
+//     phone,
+//     email, 
+//     birthday,
+//     skype,
+//    })
+//   res.status(201).json({
+//     user: newUser,
+//     message: "User profile created successfully",
+// });
+
+// }
+
+
+
+// ------ Update user profile  controller--------------
+const updateUserProfile = async (req, res) => {
+ 
+  if (!req.user) {
+    throw HttpError(401, "Not authorized")
+    // return res.status(401).json({ message: "Not authorized" });
+  }
+  const { _id } = req.user;
+  const body = req.body; 
+  const updatedUser = await User.findByIdAndUpdate(_id, body, { new: true });
+  if (!updatedUser) {
+     // return res.status(404).json({ message: "User not found" });
+    throw HttpError(404, "User not found")
+
+}
+res.status(200).json({
+  status: 'Update fields',
+  code: 200,
+  user: updatedUser,
+  message: "User profile updated successfully",
+ 
+})
+}
+
+
 export default {
   register: ctrlWrapper(register),
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
-  subscriptionUpdate: ctrlWrapper(subscriptionUpdate),
   updateAvatarUser: ctrlWrapper(updateAvatarUser),
   verify: ctrlWrapper(verify),
   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
+  updateUserProfile: ctrlWrapper(updateUserProfile),
+  // addUserProfile: ctrlWrapper(addUserProfile),
 };
