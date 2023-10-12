@@ -4,7 +4,8 @@ import cors from 'cors'
 import path from 'path'
 
 import authRouter from './src/routes/api/auth-router.js'
-import contactsRouter from './src/routes/api/contacts-router.js'
+
+
 
 const app = express()
 
@@ -16,8 +17,8 @@ app.use(express.json())
 app.use('/public', express.static(path.join('./public')))
 
 
-app.use('/api/users', authRouter);
-app.use('/api/contacts', contactsRouter)
+app.use('/users', authRouter);
+
 
 app.use((req, res) => {
   res.status(404).json({ message: 'Not found' })
