@@ -6,15 +6,16 @@ export const categoryList = ["to-do", "in-progress", "done"];
 
 const taskSchema = new Schema(
 	{
+		owner: { type: Schema.Types.ObjectId, ref: "user", required: true },
 		title: { type: String, required: [true, "Set title for your task"] },
 		start: { type: String, required: true },
 		end: { type: String, required: true },
-		priority: { type: String, enum: priorityList, default: "medium", required: true },
+		priority: { type: String, enum: priorityList, required: true },
 
 		//can we use [default : "medium"]?
 
 		date: { type: String, required: true },
-		category: { type: String, enum: categoryList, default: "to-do", required: true },
+		category: { type: String, enum: categoryList, required: true },
 	},
 	{ versionKey: false, timestamps: false }
 );
