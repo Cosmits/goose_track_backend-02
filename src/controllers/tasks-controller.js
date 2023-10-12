@@ -18,24 +18,24 @@ const addTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-	console.log("updateTask");
+	console.log("updateTask", req.params);
 
-	// const contactId = req.params.contactId;
-	// const result = await Task.findByIdAndUpdate(contactId, req.body, { new: true });
-	// if (!result) {
-	// 	throw HttpError(404, `Contact id=${contactId} not found`);
-	// }
-	// res.status(200).json(result);
+	const taskId = req.params.taskId;
+	const result = await Task.findByIdAndUpdate(taskId, req.body, { new: true });
+	if (!result) {
+		throw HttpError(404, `Task with id=${taskId} not found`);
+	}
+	res.status(200).json(result);
 };
 
 const deleteTask = async (req, res) => {
 	console.log("deleteTask");
-	// const contactId = req.params.contactId;
-	// const result = await Task.findByIdAndDelete(taskId);
-	// if (!result) {
-	// 	throw HttpError(404, "Not found!");
-	// }
-	// res.status(200).json({ message: "Contact removed" });
+	const taskId = req.params.taskId;
+	const result = await Task.findByIdAndDelete(taskId);
+	if (!result) {
+		throw HttpError(404, "Not found!");
+	}
+	res.status(200).json({ message: "Task has been removed" });
 };
 
 export default {
