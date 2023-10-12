@@ -17,9 +17,9 @@ usersRouter.post('/logout', authenticate, userController.logout);
 
 usersRouter.patch('/avatars', authenticate, upload.single('avatar'), userController.updateAvatarUser)
 
-// usersRouter.get("/verify/:verificationToken", userController.verify);
+usersRouter.get("/verify/:verificationToken", userController.verify);
 
-// usersRouter.post("/verify", usersValidation.userEmailValidate, userController.resendVerifyEmail);
+usersRouter.post("/verify", usersValidation.userEmailValidate, userController.resendVerifyEmail);
 
 
 

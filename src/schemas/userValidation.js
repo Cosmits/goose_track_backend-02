@@ -46,5 +46,4 @@ const userProfileSchema = Joi.object({
 export default { 
   userSignupValidation,
   userProfileSchema,
-  //  usersSubscriptionFieldSchema,
     userEmailSchema };
