@@ -2,10 +2,12 @@ import Review from "../models/Review.js";
 
 import { ctrlWrapper } from "../decorators/index.js";
 import { HttpError } from "../helpers/index.js";
-import User from "../schemas/usersMongo.js";
 
 const getAllReviews = async (req, res) => {
-  const reviews = await Review.find();
+  const reviews = await Review.find({}, "-_id").populate(
+    "owner",
+    "avatarURL name"
+  );
   res.json(reviews);
 };
 

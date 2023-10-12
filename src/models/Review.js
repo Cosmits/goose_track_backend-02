@@ -1,10 +1,15 @@
 import { Schema, model } from "mongoose";
-// import { handleSaveError, runValidateAtUpdate } from "./hooks.js";
+import {
+  handleMongooseError,
+  runValidateAtUpdate,
+} from "../schemas/mongooseHooks.js";
 
 const reviewSchema = new Schema(
   {
     rating: {
       type: Number,
+      min: [0, "too few rating"],
+      max: [5, "too high rating"],
       required: [true, "Set rating for review"],
     },
     comment: {
@@ -14,16 +19,18 @@ const reviewSchema = new Schema(
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
+      required: [true, "Set owner for review"],
+      unique: true,
     },
   },
-  { versionKey: false, timestamps: false }
+  { versionKey: false }
 );
 
-// contactSchema.post("save", handleSaveError);
+reviewSchema.post("save", handleMongooseError);
 
-// contactSchema.pre("findOneAndUpdate", runValidateAtUpdate);
+reviewSchema.pre("findOneAndUpdate", runValidateAtUpdate);
 
-// contactSchema.post("findOneAndUpdate", handleSaveError);
+reviewSchema.post("findOneAndUpdate", handleMongooseError);
 
 const Review = model("review", reviewSchema);
 
