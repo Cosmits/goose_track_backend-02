@@ -3,7 +3,7 @@ import logger from 'morgan'
 import cors from 'cors'
 import path from 'path'
 
-import usersRouter from './src/routes/api/auth-router.js'
+import authRouter from './src/routes/api/auth-router.js'
 
 
 
@@ -17,7 +17,7 @@ app.use(express.json())
 app.use('/public', express.static(path.join('./public')))
 
 
-app.use('/users', usersRouter);
+app.use('/users', authRouter);
 
 
 app.use((req, res) => {
