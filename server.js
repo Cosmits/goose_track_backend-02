@@ -13,15 +13,15 @@ const DB_HOST = process.env.DB_HOST;
 // console.log("🚀 ~ file: server.js:9 ~ process.env.NODE_ENV:", `.env.${process.env.NODE_ENV}`)
 
 mongoose
-	.connect(DB_HOST, {
-		useNewUrlParser: true,
-		useUnifiedTopology: true,
-	})
-	.then(() => {
-		console.log("Database connection successful");
-		app.listen(PORT, () => console.log(`Server start on PORT = ${PORT}`));
-	})
-	.catch(error => {
-		console.log(`Server not running. Error message: ${error.message}`);
-		process.exit(1);
-	});
+  .connect(DB_HOST, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Database connection successful");
+    app.listen(PORT, () => console.log(`Server start on PORT = ${PORT}`));
+  })
+  .catch((error) => {
+    console.log(`Server not running. Error message: ${error.message}`);
+    process.exit(1);
+  });
