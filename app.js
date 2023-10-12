@@ -5,7 +5,7 @@ import path from "path";
 
 import authRouter from "./src/routes/api/auth-router.js";
 import contactsRouter from "./src/routes/api/contacts-router.js";
-import tasksRouter from "./src/routes/api/task-router.js";
+import tasksRouter from "./src/routes/api/tasks-router.js";
 
 const app = express();
 
