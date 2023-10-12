@@ -7,6 +7,9 @@ const reviewsSchema = Joi.object({
   comment: Joi.string().required().messages({
     "any.required": "missing required comment field",
   }),
+  owner: Joi.string().required().messages({
+    "any.required": "missing required _id field",
+  }),
 });
 
 // const contactsFavoriteFieldSchema = Joi.object({
