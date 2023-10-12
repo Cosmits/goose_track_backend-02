@@ -1,11 +1,17 @@
 import { Router } from "express";
-import taskController from "../../controllers/tasks-controller.js";
+import tasksController from "../../controllers/tasks-controller.js";
+import authenticate from "../../middleware/authenticate.js";
+import validateBody from "../../decorators/validateBody.js";
+import tasksSchema from "../../schemas/tasks-schema.js";
 
-const tasksRouter = Router;
+const tasksRouter = Router();
 
-tasksRouter.get("/tasks", taskController.getAllTasks);
-tasksRouter.post("/tasks", taskController.addTask);
-tasksRouter.patch("/tasks/:taskId", taskController.updateTask);
-tasksRouter.delete("/tasks/:taskId", taskController.deleteTask);
+tasksRouter.use(authenticate);
+const taskAddValidator = validateBody(tasksSchema.taskSchemaValidation);
+
+tasksRouter.get("/", tasksController.getAllTasks);
+tasksRouter.post("/", taskAddValidator, tasksController.addTask);
+tasksRouter.patch("/:taskId", tasksController.updateTask);
+tasksRouter.delete("/:taskId", tasksController.deleteTask);
 
 export default tasksRouter;

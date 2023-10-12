@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { handleMongooseError, runValidateAtUpdate } from "./mongooseHooks.js";
+import { handleMongooseError, runValidateAtUpdate } from "../schemas/mongooseHooks.js";
 
 export const priorityList = ["low", "medium", "high"];
 export const categoryList = ["to-do", "in-progress", "done"];
@@ -11,9 +11,6 @@ const taskSchema = new Schema(
 		start: { type: String, required: true },
 		end: { type: String, required: true },
 		priority: { type: String, enum: priorityList, required: true },
-
-		//can we use [default : "medium"]?
-
 		date: { type: String, required: true },
 		category: { type: String, enum: categoryList, required: true },
 	},

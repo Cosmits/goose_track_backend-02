@@ -7,9 +7,8 @@ import dotenv from "dotenv";
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const PORT = normalizePort(process.env.PORT || "5005");
-const DB_HOST =
-	process.env.DB_HOST ||
-	"mongodb+srv://goose_track:F2V6jKCtaeYpXc98@cluster-goit.ohovvhs.mongodb.net/goose_track?retryWrites=true&w=majority";
+const DB_HOST = process.env.DB_HOST;
+
 // console.log("🚀 ~ file: server.js:8 ~ DB_HOST:", DB_HOST)
 // console.log("🚀 ~ file: server.js:9 ~ process.env.NODE_ENV:", `.env.${process.env.NODE_ENV}`)
 
