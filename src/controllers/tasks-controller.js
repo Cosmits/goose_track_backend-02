@@ -5,8 +5,7 @@ import Task from "../models/Task.js";
 
 const getAllTasks = async (req, res) => {
 	const { _id: owner } = req.user;
-	// const { page = 1, limit = 10 } = req.query;
-	// const skip = (page - 1) * limit;
+
 	const result = await Task.find({ owner });
 	res.json(result);
 };
@@ -20,14 +19,11 @@ const addTask = async (req, res) => {
 const updateTask = async (req, res) => {
 	const { _id: owner } = req.user;
 
-	const { taskId } = req.params;
-
-	const result = await Task.find({ owner });
-
-	// const result = await Task.findById(owner, req.body, { new: true });
+	const { taskId: _id } = req.params;
+	const result = await Task.findOneAndUpdate({ owner, _id }, req.body, { new: true });
 
 	if (!result) {
-		throw HttpError(404, `Task with id=${taskId} not found`);
+		throw HttpError(404, `Task with id=${_id} not found`);
 	}
 	res.status(200).json(result);
 };
