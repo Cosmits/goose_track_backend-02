@@ -16,7 +16,12 @@ reviewsRouter.post(
   reviewsController.addOneReview
 );
 
-reviewsRouter.patch("/own", authenticate, reviewsController.updateOneReview);
+reviewsRouter.patch(
+  "/own",
+  authenticate,
+  reviewsValidation.updateReviewValidate,
+  reviewsController.updateOneReview
+);
 
 reviewsRouter.delete("/own", authenticate, reviewsController.removeOneReview);
 
