@@ -11,7 +11,7 @@ const taskSchema = new Schema(
 		start: { type: String, required: true },
 		end: { type: String, required: true },
 		priority: { type: String, enum: priorityList, required: true },
-		date: { type: String, required: true },
+		date: { type: Date, required: true },
 		category: { type: String, enum: categoryList, required: true },
 	},
 	{ versionKey: false, timestamps: false }

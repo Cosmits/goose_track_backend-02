@@ -18,10 +18,14 @@ const addTask = async (req, res) => {
 };
 
 const updateTask = async (req, res) => {
-	console.log("updateTask", req.params);
+	const { _id: owner } = req.user;
 
-	const taskId = req.params.taskId;
-	const result = await Task.findByIdAndUpdate(taskId, req.body, { new: true });
+	const { taskId } = req.params;
+
+	const result = await Task.find({ owner });
+
+	// const result = await Task.findById(owner, req.body, { new: true });
+
 	if (!result) {
 		throw HttpError(404, `Task with id=${taskId} not found`);
 	}
@@ -29,7 +33,6 @@ const updateTask = async (req, res) => {
 };
 
 const deleteTask = async (req, res) => {
-	console.log("deleteTask");
 	const taskId = req.params.taskId;
 	const result = await Task.findByIdAndDelete(taskId);
 	if (!result) {
