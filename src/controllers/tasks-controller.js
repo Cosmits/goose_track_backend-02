@@ -3,23 +3,30 @@ import { HttpError } from "../helpers/index.js";
 
 import Task from "../models/Task.js";
 
+//GET
 const getAllTasks = async (req, res) => {
 	const { _id: owner } = req.user;
+	// const { date } = req.body;
+
+	// console.log(date);
 
 	const result = await Task.find({ owner });
+
 	res.json(result);
 };
 
+//ADD
 const addTask = async (req, res) => {
 	const { _id: owner } = req.user;
 	const result = await Task.create({ ...req.body, owner });
 	res.status(201).json(result);
 };
 
+//UPDATE
 const updateTask = async (req, res) => {
 	const { _id: owner } = req.user;
-
 	const { taskId: _id } = req.params;
+
 	const result = await Task.findOneAndUpdate({ owner, _id }, req.body, { new: true });
 
 	if (!result) {
@@ -28,9 +35,18 @@ const updateTask = async (req, res) => {
 	res.status(200).json(result);
 };
 
+//DELETE
 const deleteTask = async (req, res) => {
-	const taskId = req.params.taskId;
-	const result = await Task.findByIdAndDelete(taskId);
+	const { _id: owner } = req.user;
+	const { taskId: _id } = req.params;
+
+	const ownTask = await Task.findOne({ _id, owner });
+	if (!ownTask) {
+		throw HttpError(404, "This is not your own task");
+		return;
+	}
+
+	const result = await Task.findByIdAndDelete({ _id });
 	if (!result) {
 		throw HttpError(404, "Not found!");
 	}
