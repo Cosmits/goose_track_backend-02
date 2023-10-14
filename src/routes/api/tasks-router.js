@@ -8,11 +8,13 @@ import isValidId from "../../middleware/validation/isValidId.js";
 const tasksRouter = Router();
 
 tasksRouter.use(authenticate);
+
 const taskAddValidator = validateBody(tasksSchema.taskSchemaValidation);
+const taskUpdateValidator = validateBody(tasksSchema.updateTaskSchemaValidation);
 
 tasksRouter.get("/", tasksController.getAllTasks);
 tasksRouter.post("/", taskAddValidator, tasksController.addTask);
-tasksRouter.patch("/:taskId", isValidId, taskAddValidator, tasksController.updateTask);
+tasksRouter.patch("/:taskId", isValidId, taskUpdateValidator, tasksController.updateTask);
 tasksRouter.delete("/:taskId", tasksController.deleteTask);
 
 export default tasksRouter;
