@@ -15,20 +15,7 @@ const taskSchemaValidation = Joi.object({
 		.valid(...categoryList)
 		.default("to-do")
 		.required(),
-}).custom((time, helpers) => {
-	const { start, end } = time;
-	const startTime = parseTime(start);
-	const endTime = parseTime(end);
-	if (startTime > endTime) {
-		return helpers.error("End time must be greater than start time");
-	}
-	return time;
 });
-
-function parseTime(timeString) {
-	const [hours, minutes] = timeString.split(":").map(Number);
-	return hours * 60 + minutes;
-}
 
 const updateTaskSchemaValidation = Joi.object({
 	title: Joi.string().min(1).max(250),

@@ -7,6 +7,7 @@ import Task from "../models/Task.js";
 const getAllTasks = async (req, res) => {
 	const { _id: owner } = req.user;
 	const { date } = req.query;
+
 	const result = await Task.find({
 		owner,
 		date: { $regex: date, $options: "i" },
