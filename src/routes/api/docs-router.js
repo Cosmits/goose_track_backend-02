@@ -3,7 +3,7 @@ import { serveFiles, setup } from "swagger-ui-express";
 import swaggerDocument from "../../docs/index.js"
 const docRouter = Router();
 
-console.log(swaggerDocument) 
+// console.log(swaggerDocument) 
 
 const options = {
   explorer: true,
@@ -14,7 +14,7 @@ const options = {
 };
 docRouter.get("/swagger.json", (req, res) => res.json(swaggerDocument));
 
-docRouter.use("/", serveFiles(null, options));
-docRouter.get("/", setup(null, options));
+docRouter.use("/", serveFiles(swaggerDocument, options));
+docRouter.get("/", setup(swaggerDocument, options));
 
 export default docRouter;

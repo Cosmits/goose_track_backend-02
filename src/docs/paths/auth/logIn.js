@@ -52,7 +52,7 @@ export const login = {
                     token: {
                       description: "Generated json web token",
                       type: "string",
-                      example: "adsjkasnxz.csdcdfgdvgfhgfdcs.saxsa",
+                      example: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmJkZGQ4YjJjZGNjNGViOWJlZTU3NiIsImlhdCI6MTY5NzM3Mzc4NywiZXhwIjoxNjk3NDU2NTg3fQ.AzunbIeZDzB_dI57b4hiEnqpHMYjjr61XQMI28LzgfI",
                     },
                     user: {
                       type: "object",

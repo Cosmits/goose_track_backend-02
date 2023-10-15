@@ -16,18 +16,11 @@ export const verifyEmail = {
           "application/json": {
             example: {
               code: 200,
-              message: "Verification successful",
-              email: {
+              message: "Email verification successful",
+              status: {
+                description: "Status type",
                 type: "string",
-                example: "email@gmail.com",
-              },
-              token: {
-                type: "string",
-                example: "adsjkasnxz.csdcdfgdvgfhgfdcs.saxsa",
-              },
-              verify: {
-                type: "boolean",
-                example: "true",
+                example: "Verification successful",
               },
             },
           },
