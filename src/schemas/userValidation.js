@@ -6,13 +6,22 @@ const phoneRegexp = /^\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$/;
 const birthdayRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
 
 const userSignupValidation = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required().messages({
-    "any.required": "missing required email field",
-  }),
-  password: Joi.string().min(6).pattern(passwordRegexp).required().messages({
-    "any.required": "missing required password field",
-  }),
- 
+  userName: Joi.string()
+    .min(3)
+    .max(40)
+    .messages({ "any.required": "missing required userName field" }),
+
+  email: Joi.string().
+    pattern(emailRegexp).
+    required().
+    messages({ "any.required": "missing required email field", }),
+
+  password: Joi.string()
+    .min(6)
+    .pattern(passwordRegexp)
+    .required()
+    .messages({ "any.required": "missing required password field", }),
+
 });
 
 
@@ -43,7 +52,8 @@ const userProfileSchema = Joi.object({
 
 
 
-export default { 
+export default {
   userSignupValidation,
   userProfileSchema,
-    userEmailSchema };
+  userEmailSchema
+};
