@@ -4,7 +4,7 @@ import { HttpError } from "../helpers/index.js";
 import Task from "../models/Task.js";
 
 //GET
-const getAllTasksByMonth = async (req, res) => {
+const getAllTasks = async (req, res) => {
 	const { _id: owner } = req.user;
 	const { date } = req.body;
 
@@ -54,7 +54,7 @@ const deleteTask = async (req, res) => {
 };
 
 export default {
-	getAllTasks: ctrlWrapper(getAllTasksByMonth),
+	getAllTasks: ctrlWrapper(getAllTasks),
 	addTask: ctrlWrapper(addTask),
 	updateTask: ctrlWrapper(updateTask),
 	deleteTask: ctrlWrapper(deleteTask),

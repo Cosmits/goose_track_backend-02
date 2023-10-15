@@ -14,7 +14,8 @@ const taskSchema = new Schema(
 		end: { type: String, match: [timeRegex, "Is not valid Time format"], required: true },
 
 		priority: { type: String, enum: priorityList, required: true },
-		date: { type: Date, required: true },
+
+		date: { type: String, required: true },
 		category: { type: String, enum: categoryList, required: true },
 	},
 	{ versionKey: false, timestamps: false }

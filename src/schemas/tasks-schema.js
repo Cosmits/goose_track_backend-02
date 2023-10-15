@@ -10,25 +10,32 @@ const taskSchemaValidation = Joi.object({
 		.valid(...priorityList)
 		.default("medium")
 		.required(),
-	date: Joi.date().iso().error(new Error(" Is not valid date format")).required(),
+	date: Joi.string().required(),
 	category: Joi.string()
 		.valid(...categoryList)
 		.default("to-do")
 		.required(),
+}).custom((time, helpers) => {
+	const { start, end } = time;
+	const startTime = parseTime(start);
+	const endTime = parseTime(end);
+	if (startTime > endTime) {
+		return helpers.error("End time must be greater than start time");
+	}
+	return time;
 });
-// .custom((doc, helpers) => {
-// 	if (doc.end > doc.start) {
-// 		throw helpers.error("Start time should be lower than End time!");
-// 	}
-// 	return doc;
-// });
+
+function parseTime(timeString) {
+	const [hours, minutes] = timeString.split(":").map(Number);
+	return hours * 60 + minutes;
+}
 
 const updateTaskSchemaValidation = Joi.object({
 	title: Joi.string().min(1).max(250),
-	start: Joi.string(),
-	end: Joi.string(),
+	start: Joi.string().regex(timeRegex).error(new Error(" Is not valid time format")),
+	end: Joi.string().regex(timeRegex).error(new Error(" Is not valid time format")),
 	priority: Joi.string().valid(...priorityList),
-	date: Joi.date(),
+	date: Joi.string(),
 	category: Joi.string().valid(...categoryList),
 });
 
