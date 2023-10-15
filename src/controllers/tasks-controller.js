@@ -4,13 +4,15 @@ import { HttpError } from "../helpers/index.js";
 import Task from "../models/Task.js";
 
 //GET
-const getAllTasks = async (req, res) => {
+const getAllTasksByMonth = async (req, res) => {
 	const { _id: owner } = req.user;
-	// const { date } = req.body;
+	const { date } = req.body;
 
-	// console.log(date);
+	const result = await Task.find({
+		owner,
 
-	const result = await Task.find({ owner });
+		// date: { $regex: "2023-11", $options: "i" },
+	});
 
 	res.json(result);
 };
@@ -18,7 +20,9 @@ const getAllTasks = async (req, res) => {
 //ADD
 const addTask = async (req, res) => {
 	const { _id: owner } = req.user;
+
 	const result = await Task.create({ ...req.body, owner });
+
 	res.status(201).json(result);
 };
 
@@ -54,7 +58,7 @@ const deleteTask = async (req, res) => {
 };
 
 export default {
-	getAllTasks: ctrlWrapper(getAllTasks),
+	getAllTasks: ctrlWrapper(getAllTasksByMonth),
 	addTask: ctrlWrapper(addTask),
 	updateTask: ctrlWrapper(updateTask),
 	deleteTask: ctrlWrapper(deleteTask),
