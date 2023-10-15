@@ -22,7 +22,7 @@ app.use("/public", express.static(path.join("./public")));
 app.use("/users", authRouter);
 app.use("/tasks", tasksRouter);
 app.use("/reviews", reviewsRouter);
-app.use("/api-docs", docRouter);
+app.use("/", docRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Not found" });
