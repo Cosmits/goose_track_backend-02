@@ -1,13 +1,16 @@
-import basicInfo from "./basicInfo";
-import servers from "./servers";
-import components from "./components";
-import tags from "./tags";
-import paths from "./paths";
+import { openapi } from "./openapi.js";
+import { servers } from "./servers.js";
+import { tags } from "./tags.js";
 
-export default {
-  ...basicInfo,
+import { paths } from "./paths/index.js";
+import { components } from "./components/index.js";
+
+const swaggerDocument = {
+  ...openapi,
   ...servers,
   ...components,
   ...tags,
   ...paths,
 };
+
+export default swaggerDocument

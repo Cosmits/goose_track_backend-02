@@ -1,9 +1,11 @@
-import parameters from "./parameters";
-import schemas from "./schemas";
-import securitySchemes from "./securitySchemes";
+import { parameters } from "./parameters/index.js";
+import { schemas } from "./schemas/index.js";
+import { securitySchemes } from "./securitySchemes/index.js";
 
 export const components = {
-  ...parameters,
-  ...schemas,
-  ...securitySchemes,
+  components: {
+    ...parameters,
+    ...schemas,
+    ...securitySchemes,
+  }
 };

@@ -1,4 +1,4 @@
-module.exports = {
+export const current = {
   get: {
     tags: ["Auth"],
     summary: "Get information about the current user",
@@ -21,7 +21,7 @@ module.exports = {
                   properties: {
                     token: {
                       type: "string",
-                      description: "Backend-generated unique json web token",
+                      description: "Generated json web token",
                       example: "adsjkasnxz.csdcdfgdvgfhgfdcs.saxsa",
                     },
                     user: {
@@ -41,5 +41,5 @@ module.exports = {
         description: "Server error",
       },
     },
-  },
+  }
 };

@@ -1,9 +1,9 @@
-module.exports = {
+export const verifyEmail = {
   get: {
     tags: ["Auth"],
     summary: "Verify user email",
     description: "This route verify user email",
-    operationId: "verifyEmail",
+    operationId: "verify",
     parameters: [
       {
         $ref: "#/components/parameters/verificationToken",
@@ -17,7 +17,10 @@ module.exports = {
             example: {
               code: 200,
               message: "Verification successful",
-              email: { type: "string", example: "stepan@gmail.com" },
+              email: {
+                type: "string",
+                example: "email@gmail.com",
+              },
               token: {
                 type: "string",
                 example: "adsjkasnxz.csdcdfgdvgfhgfdcs.saxsa",
@@ -37,5 +40,5 @@ module.exports = {
         description: "Server error",
       },
     },
-  },
+  }
 };

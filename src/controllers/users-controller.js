@@ -122,22 +122,6 @@ const updateAvatarUser = async (req, res) => {
 
 }
 
-const verify = async (req, res) => {
-  const { verificationToken } = req.params;
-
-  const user = await User.findOne({ verificationToken });
-
-  if (!user) throw HttpError(404);
-
-  await User.findByIdAndUpdate(user._id, { verify: true, verificationToken: "Verify" });
-
-  res.status(200).json({
-    status: 'Verification successful',
-    code: 200,
-    message: "Email verification successful"
-  })
-}
-
 const resendVerifyEmail = async (req, res) => {
   const { email } = req.body;
   const user = await User.findOne({ email });
@@ -157,6 +141,22 @@ const resendVerifyEmail = async (req, res) => {
     status: 'Verify email resend success',
     code: 200,
     message: "Verify email resend success"
+  })
+}
+
+const verify = async (req, res) => {
+  const { verificationToken } = req.params;
+
+  const user = await User.findOne({ verificationToken });
+
+  if (!user) throw HttpError(404);
+
+  await User.findByIdAndUpdate(user._id, { verify: true, verificationToken: "Verify" });
+
+  res.status(200).json({
+    status: 'Verification successful',
+    code: 200,
+    message: "Email verification successful"
   })
 }
 

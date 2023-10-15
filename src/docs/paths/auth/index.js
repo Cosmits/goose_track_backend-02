@@ -1,11 +1,17 @@
-module.exports = {
-  "/auth/register": require("./register"),
-  "/auth/login": require("./logIn"),
-  "/auth/logout": require("./logOut"),
-  "/auth/current": require("./current"),
-  "/auth/user": require("./updateUser"),
-  "/auth/sendVerifyEmail": require("./sendVerifyEmail"),
-  "/auth/verify/{verificationToken}": require("./verifyEmail"),
-  "/auth/sendRenewPass": require("./sendRenewPass"),
-  "/auth/changePassword": require("./changePassword"),
+import { register } from "./register.js";
+import { login } from "./login.js";
+import { current } from "./current.js";
+import { logout } from "./logout.js";
+import { edit } from "./edit.js";
+import { verify } from "./verify.js";
+import { verifyEmail } from "./verifyEmail.js";
+
+export default {
+  "/users/register": register,
+  "/users/login": login,
+  "/users/current": current,
+  "/users/logout": logout,
+  "/users/edit": edit,
+  "/users/verify": verify,
+  "/users/verify/{verificationToken}": verifyEmail,
 };

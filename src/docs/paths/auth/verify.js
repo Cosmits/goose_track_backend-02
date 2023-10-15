@@ -1,9 +1,9 @@
-module.exports = {
-  get: {
+export const verify = {
+  post: {
     tags: ["Auth"],
     summary: "Send verify Email",
     description: "This route send the user verification email",
-    operationId: "SendVerify",
+    operationId: "verify",
     security: [
       {
         BearerAuth: [],
@@ -20,7 +20,7 @@ module.exports = {
               email: {
                 type: "string",
                 description: "email is verification",
-                example: "stepan@gmail.com",
+                example: "email@gmail.com",
               },
             },
           },
@@ -33,5 +33,5 @@ module.exports = {
         description: "Server error",
       },
     },
-  },
+  }
 };

@@ -3,7 +3,7 @@ import { Router } from 'express';
 import userController from '../../controllers/users-controller.js';
 import authenticate from '../../middleware/authenticate.js';
 import usersValidation from '../../middleware/validation/users-validation.js';
-import upload from '../../middleware/upload.js';
+// import upload from '../../middleware/upload.js';
 
 const authRouter = Router();
 
@@ -15,12 +15,11 @@ authRouter.get('/current', authenticate, userController.getCurrent);
 
 authRouter.post('/logout', authenticate, userController.logout);
 
-authRouter.patch('/avatars', authenticate, upload.single('avatar'), userController.updateAvatarUser)
+// authRouter.patch('/avatars', authenticate, upload.single('avatar'), userController.updateAvatarUser)
 
 authRouter.get("/verify/:verificationToken", userController.verify);
 
 authRouter.post("/verify", usersValidation.userEmailValidate, userController.resendVerifyEmail);
-
 
 
 
@@ -29,6 +28,6 @@ authRouter.post("/verify", usersValidation.userEmailValidate, userController.res
 authRouter.patch("/edit", authenticate, usersValidation.userProfileValidate, userController.updateUserProfile)
 
 // роутер для запису додавання  юзера в user-profile
-// authRouterr.post("/user", authenticate, usersValidation.userProfileValidate, userController.addUserProfile)
+// authRouter.post("/user", authenticate, usersValidation.userProfileValidate, userController.addUserProfile)
 
 export default authRouter;

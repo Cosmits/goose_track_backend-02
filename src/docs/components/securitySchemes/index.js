@@ -1,7 +1,7 @@
-const BearerAuth = require("./BearerAuth");
+import { BearerAuth } from "./BearerAuth.js";
 
-module.exports = {
+export const securitySchemes = {
   securitySchemes: {
     ...BearerAuth,
-  },
+  }
 };

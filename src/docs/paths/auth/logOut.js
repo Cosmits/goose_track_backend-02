@@ -1,8 +1,8 @@
-module.exports = {
+export const logout = {
   post: {
     tags: ["Auth"],
     summary: "Log out user",
-    description: "This route logs the user out",
+    description: "This route logout the user",
     operationId: "logout",
     security: [
       {
@@ -11,7 +11,7 @@ module.exports = {
     ],
     responses: {
       204: {
-        description: "The user is logged out",
+        description: "This route logout the user",
         content: {
           "application/json": {
             example: {
@@ -28,5 +28,5 @@ module.exports = {
         description: "Server error",
       },
     },
-  },
+  }
 };

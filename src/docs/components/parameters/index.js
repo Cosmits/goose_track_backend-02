@@ -1,4 +1,9 @@
-import month from "./month";
-import verificationToken from "./verificationToken";
+import { month } from "./month.js";
+import { verificationToken } from "./verificationToken.js";
 
-export const parameters = { ...month, ...verificationToken };
+export const parameters = {
+  parameters: {
+    ...month,
+    ...verificationToken
+  }
+};

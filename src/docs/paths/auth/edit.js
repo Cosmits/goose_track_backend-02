@@ -1,9 +1,9 @@
-module.exports = {
+export const edit = {
   patch: {
     tags: ["Auth"],
     summary: "Update user",
     description: "This route updates user's information",
-    operationId: "user",
+    operationId: "edit",
     security: [
       {
         BearerAuth: [],
@@ -14,7 +14,7 @@ module.exports = {
       content: {
         "multipart/form-data:": {
           schema: {
-            $ref: "#/components/schemas/updateUserTdo",
+            $ref: "#/components/schemas/UserEdit",
           },
         },
       },
@@ -49,5 +49,5 @@ module.exports = {
         description: "Server error",
       },
     },
-  },
+  }
 };

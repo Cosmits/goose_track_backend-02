@@ -1,4 +1,4 @@
-module.exports = {
+export const User = {
   User: {
     type: "object",
     required: ["userName", "email", "password"],
@@ -11,37 +11,31 @@ module.exports = {
       userName: {
         type: "string",
         description: "User's name",
-        example: "Stepan Bandera",
+        example: "Steve Jobs",
       },
       email: {
         type: "string",
         description: "User's email",
-        example: "stepan@gmail.com",
-      },
-      avatarURL: {
-        type: "string",
-        description: "User's avatar URL",
-        example:
-          "https://res.cloudinary.com/dnhobiphs/image/upload/v1693572737/avatars/64ef0ce090ff7bcd7e528d14.png",
+        example: "email@gmail.com",
       },
       phone: {
         type: "string",
         description: "User's phone",
-        example: "+38 (098) 000 0000",
+        example: "+38 (067) 000 00 00",
       },
       skype: {
         type: "string",
         description: "User's  skype",
-        example: "stepan",
+        example: "steve_jobs",
       },
       birthDay: {
         type: "string",
         description: "User's  birthDay",
-        example: "11/11/1995",
+        example: "01/01/2000",
       },
       verify: {
         type: "boolean",
-        description: "isVerifikation email",
+        description: "is verification email",
         example: "false",
       },
       createdAt: {
@@ -55,5 +49,5 @@ module.exports = {
         example: "2023-08-25T23:33:49.514Z",
       },
     },
-  },
+  }
 };

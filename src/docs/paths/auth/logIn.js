@@ -1,9 +1,9 @@
-module.exports = {
+export const login = {
   post: {
     tags: ["Auth"],
     summary: "Login user",
-    description: "This route logs the user",
-    operationId: "logIn",
+    description: "This login route for the user",
+    operationId: "login",
     requestBody: {
       description: "An example of a request object for user login",
       required: true,
@@ -16,12 +16,12 @@ module.exports = {
               email: {
                 type: "string",
                 description: "E-mail address",
-                example: "StepanBandera@gmail.com",
+                example: "email@gmail.com",
               },
               password: {
                 type: "string",
                 description: "Password",
-                example: "asd23asd12",
+                example: "anyPass123",
               },
             },
           },
@@ -30,7 +30,7 @@ module.exports = {
     },
     responses: {
       200: {
-        description: "User is logged in",
+        description: "Login user",
         content: {
           "application/json": {
             schema: {
@@ -38,14 +38,25 @@ module.exports = {
               allOf: [
                 {
                   properties: {
+                    status: {
+                      description: "Status type",
+                      type: "string",
+                      example: "OK",
+                    },
+                    code: {
+                      description: "Status code",
+                      type: "number",
+                      example: 200,
+                    },
+
+                    token: {
+                      description: "Generated json web token",
+                      type: "string",
+                      example: "adsjkasnxz.csdcdfgdvgfhgfdcs.saxsa",
+                    },
                     user: {
                       type: "object",
                       $ref: "#/components/schemas/User",
-                    },
-                    token: {
-                      type: "string",
-                      description: "Backend-generated unique json web token",
-                      example: "adsjkasnxz.csdcdfgdvgfhgfdcs.saxsa",
                     },
                   },
                 },
@@ -64,5 +75,5 @@ module.exports = {
         description: "Server error",
       },
     },
-  },
+  }
 };

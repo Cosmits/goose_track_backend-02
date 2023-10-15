@@ -1,14 +1,16 @@
-export const tags = [
-  {
-    name: "Auth",
-    description: "Work with users auth.",
-  },
-  {
-    name: "Tasks",
-    description: "Work with current user tasks.",
-  },
-  {
-    name: "Reviews",
-    description: "Work with current user review.",
-  },
-];
+export const tags = {
+  tags: [
+    {
+      name: "Auth",
+      description: "Tag: users auth.",
+    },
+    // {
+    //   name: "Tasks",
+    //   description: "Tag: user's tasks.",
+    // },
+    // {
+    //   name: "Reviews",
+    //   description: "Tag: user's review.",
+    // },
+  ],
+};

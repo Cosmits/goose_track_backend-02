@@ -1,11 +1,11 @@
-module.exports = {
+export const register = {
   post: {
     tags: ["Auth"],
     summary: "Register a new user",
-    description: "This route registers the user",
+    description: "This route register the user",
     operationId: "register",
     requestBody: {
-      description: "An example of a request object for creating a new user",
+      description: "An example for creating a new user",
       required: true,
       content: {
         "application/json": {
@@ -16,17 +16,17 @@ module.exports = {
               userName: {
                 type: "string",
                 description: "userName",
-                example: "Stepan Bandera",
+                example: "Steve Jobs",
               },
               email: {
                 type: "string",
                 description: "E-mail address",
-                example: "StepanBandera@gmail.com",
+                example: "email@gmail.com",
               },
               password: {
                 type: "string",
                 description: "Password",
-                example: "asd23asd12",
+                example: "anyPass123",
               },
             },
           },
@@ -43,7 +43,13 @@ module.exports = {
               allOf: [
                 {
                   properties: {
+                    status: {
+                      description: "Status type",
+                      type: "string",
+                      example: "OK",
+                    },
                     code: {
+                      description: "Status code",
                       type: "number",
                       example: 201,
                     },
@@ -69,5 +75,5 @@ module.exports = {
         description: "Server error",
       },
     },
-  },
+  }
 };

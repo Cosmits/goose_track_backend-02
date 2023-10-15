@@ -1,9 +1,11 @@
-import auth from "./auth";
-import tasks from './tasks';
-import reviews from './reviews';
+import auth from "./auth/index.js";
+// import tasks from './tasks';
+// import reviews from './reviews';
 
 export const paths = {
-  ...auth,
-  ...tasks,
-  ...reviews,
+  paths: {
+    ...auth,
+    // ...tasks,
+    // ...reviews,
+  }
 };
