@@ -4,6 +4,7 @@ import { handleMongooseError, runValidateAtUpdate } from "../schemas/mongooseHoo
 export const priorityList = ["low", "medium", "high"];
 export const categoryList = ["to-do", "in-progress", "done"];
 export const timeRegex = /^([0-1][0-9]|2[0-3]):[0-5][0-9]$/;
+export const dateRegex = /^20[0-2][0-9]-((0[1-9])|(1[0-2]))-(0[1-9]|[1-2][0-9]|3[0-1])$/;
 
 const taskSchema = new Schema(
 	{
@@ -15,7 +16,7 @@ const taskSchema = new Schema(
 
 		priority: { type: String, enum: priorityList, required: true },
 
-		date: { type: String, required: true },
+		date: { type: String, match: [dateRegex, "Is not valid Date format"], required: true },
 		category: { type: String, enum: categoryList, required: true },
 	},
 	{ versionKey: false, timestamps: false }
