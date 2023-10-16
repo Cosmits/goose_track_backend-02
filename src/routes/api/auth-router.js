@@ -7,9 +7,9 @@ import usersValidation from '../../middleware/validation/users-validation.js';
 
 const authRouter = Router();
 
-authRouter.post('/register', usersValidation.userValidate, userController.register);
+authRouter.post('/register', usersValidation.userRegisterValidate, userController.register);
 
-authRouter.post('/login', usersValidation.userValidate, userController.login);
+authRouter.post('/login', usersValidation.userLoginValidate, userController.login);
 
 authRouter.get('/current', authenticate, userController.getCurrent);
 

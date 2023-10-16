@@ -48,7 +48,6 @@ export const login = {
                       type: "number",
                       example: 200,
                     },
-
                     token: {
                       description: "Generated json web token",
                       type: "string",

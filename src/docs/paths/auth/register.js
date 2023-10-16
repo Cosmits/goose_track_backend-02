@@ -11,7 +11,7 @@ export const register = {
         "application/json": {
           schema: {
             type: "object",
-            required: ["name", "email", "password"],
+            required: ["userName", "email", "password"],
             properties: {
               userName: {
                 type: "string",
@@ -53,7 +53,6 @@ export const register = {
                       type: "number",
                       example: 201,
                     },
-
                     user: {
                       type: "object",
                       $ref: "#/components/schemas/User",

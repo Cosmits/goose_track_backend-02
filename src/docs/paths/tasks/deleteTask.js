@@ -21,7 +21,7 @@ export const deleteTask = {
     ],
     responses: {
       200: {
-        description: "todo deleted",
+        description: "to-do deleted",
         content: {
           "application/json": {
             schema: {
@@ -54,7 +54,7 @@ export const deleteTask = {
                         },
                         priority: {
                           type: "string",
-                          example: "LOW",
+                          example: "low",
                         },
                         date: {
                           type: "string",
@@ -62,7 +62,7 @@ export const deleteTask = {
                         },
                         category: {
                           type: "string",
-                          example: "TODO",
+                          example: "to-do",
                         },
                       },
                     },

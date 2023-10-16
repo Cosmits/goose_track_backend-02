@@ -15,6 +15,7 @@ export const verify = {
         content: {
           "application/json": {
             example: {
+              status: "OK",
               code: 200,
               message: "Verification email sent",
               email: {

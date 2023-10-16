@@ -15,13 +15,9 @@ export const verifyEmail = {
         content: {
           "application/json": {
             example: {
+              status: "OK",
               code: 200,
               message: "Email verification successful",
-              status: {
-                description: "Status type",
-                type: "string",
-                example: "Verification successful",
-              },
             },
           },
         },
