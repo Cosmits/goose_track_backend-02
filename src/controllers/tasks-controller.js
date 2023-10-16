@@ -7,6 +7,7 @@ import Task from "../models/Task.js";
 const getAllTasks = async (req, res) => {
 	const { _id: owner } = req.user;
 	const { date } = req.query;
+	if (!date) throw HttpError(404, `You did something wrong :()`);
 
 	const result = await Task.find(
 		{
