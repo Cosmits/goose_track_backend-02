@@ -1,5 +1,5 @@
 import { Schema, model } from "mongoose";
-import { handleMongooseError, runValidateAtUpdate } from './mongooseHooks.js';
+import { handleMongooseError, runValidateAtUpdate } from '../schemas/mongooseHooks.js';
 // import { number } from "joi";
 
 const emailRegexp = /^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9_-]+).([a-zA-Z]{2,5})$/;
@@ -34,7 +34,7 @@ const userSchema = new Schema(
       type: String,
       match: birthdayRegexp,
       default: "",
-     
+
     },
     skype: {
       type: String,
@@ -43,10 +43,10 @@ const userSchema = new Schema(
     token: {
       type: String,
       default: '',
-  },
-  avatarURL: {
-    type: String,
-  },
+    },
+    avatarURL: {
+      type: String,
+    },
     verify: {
       type: Boolean,
       default: false,

@@ -5,6 +5,8 @@ import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const { UKR_NET_EMAIL_FROM, UKR_NET_EMAIL_PASSWORD } = process.env;
+const BASE_URL_BACK = process.env.BASE_URL_BACK
+const PORT = process.env.PORT
 
 const nodemailerConfig = {
   host: "smtp.ukr.net",
@@ -26,9 +28,17 @@ const data = {
 };
 */
 
-const sendEmail = data => {
-  const email = { ...data, from: UKR_NET_EMAIL_FROM };
-  return transport.sendMail(email)
+const sendEmail = (verificationToken, email) => {
+  
+  const verifyEmail = {
+    from: UKR_NET_EMAIL_FROM,
+    to: email,
+    subject: "Verify email",
+    html: `<a target="_blank" href="${BASE_URL_BACK}:${PORT}/users/verify/${verificationToken}">Click to verify email</a>`
+  };
+
+  const letter = { ...verifyEmail };
+  return transport.sendMail(letter)
 }
 
 export default sendEmail;

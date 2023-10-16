@@ -21,7 +21,7 @@ export const getAllTasks = {
           pattern: [
             "^20dd-(0[1-9]|1[012])$",
             "^20dd-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$",
-            
+
           ]
         },
       },
@@ -37,6 +37,12 @@ export const getAllTasks = {
                 {
                   properties: {
                     status: {
+                      description: "Status type",
+                      type: "string",
+                      example: "OK",
+                    },
+                    code: {
+                      description: "Status code",
                       type: "number",
                       example: 200,
                     },

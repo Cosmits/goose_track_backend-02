@@ -1,7 +1,6 @@
 import express from "express";
 import logger from "morgan";
 import cors from "cors";
-import path from "path";
 
 import authRouter from "./src/routes/api/auth-router.js";
 import tasksRouter from "./src/routes/api/tasks-router.js";
@@ -17,7 +16,7 @@ app.use(logger(formatsLogger));
 app.use(cors());
 
 app.use(express.json());
-app.use("/public", express.static(path.join("./public")));
+app.use(express.static("public"));
 
 app.use("/users", authRouter);
 app.use("/tasks", tasksRouter);
