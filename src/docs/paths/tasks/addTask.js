@@ -69,6 +69,12 @@ export const addTask = {
                 {
                   properties: {
                     status: {
+                      description: "Status type",
+                      type: "string",
+                      example: "OK",
+                    },
+                    code: {
+                      description: "Status code",
                       type: "number",
                       example: 201,
                     },

@@ -18,11 +18,7 @@ export const verify = {
               status: "OK",
               code: 200,
               message: "Verification email sent",
-              email: {
-                type: "string",
-                description: "email is verification",
-                example: "email@gmail.com",
-              },
+              email: "email@gmail.com",
             },
           },
         },

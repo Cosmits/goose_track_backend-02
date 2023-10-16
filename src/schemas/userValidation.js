@@ -46,19 +46,24 @@ const userEmailSchema = Joi.object({
 })
 
 const userProfileSchema = Joi.object({
-  userName: Joi.string().required().messages({
-    "any.required": "missing required name field",
-  }),
-  phone: Joi.string().pattern(phoneRegexp).required().messages({
-    "any.required": "missing required phone field",
-  }),
-  birthday: Joi.string().regex(birthdayRegexp).required().messages({
-    'string.pattern.base': 'Invalid birthday format (DD/MM/YYYY)',
-    'any.required': 'Birthday is required',
-  }),
-  email: Joi.string().pattern(emailRegexp).required().messages({
-    "any.required": "missing required email field",
-  }),
+  userName: Joi.string()
+    .messages({ "any.required": "missing required name field", }),
+  phone: Joi.string()
+    .pattern(phoneRegexp)
+    .messages({
+      "any.required": "missing required phone field",
+    }),
+  birthday: Joi.string()
+    .regex(birthdayRegexp)
+    .messages({
+      'string.pattern.base': 'Invalid birthday format (DD/MM/YYYY)',
+      'any.required': 'Birthday is required',
+    }),
+  email: Joi.string()
+    .pattern(emailRegexp)
+    .messages({
+      "any.required": "missing required email field",
+    }),
   skype: Joi.string(),
 
 });

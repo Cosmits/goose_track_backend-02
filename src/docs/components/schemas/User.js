@@ -21,16 +21,16 @@ export const User = {
       phone: {
         type: "string",
         description: "User's phone",
-        example: "+38 (067) 000 00 00",
+        example: "38 (067) 000 00 00",
       },
       skype: {
         type: "string",
         description: "User's  skype",
         example: "steve_jobs",
       },
-      birthDay: {
+      birthday: {
         type: "string",
-        description: "User's  birthDay",
+        description: "User's  birthday",
         example: "01/01/2000",
       },
       avatarURL: {

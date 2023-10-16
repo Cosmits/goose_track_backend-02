@@ -2,7 +2,7 @@ import jwt from 'jsonwebtoken';
 
 import ctrlWrapper from '../decorators/ctrlWrapper.js';
 import HttpError from '../helpers/HttpError.js';
-import User from '../schemas/usersMongo.js';
+import User from '../models/User.js';
 
 import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
