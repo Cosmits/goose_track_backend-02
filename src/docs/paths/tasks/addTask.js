@@ -38,8 +38,8 @@ export const addTask = {
               priority: {
                 type: "string",
                 description: "priority",
-                enum: ["LOW", "MEDIUM", "HIGH"],
-                example: "LOW",
+                enum: ['low', 'medium', 'high'],
+                example: "low",
               },
               date: {
                 type: "string",
@@ -50,8 +50,8 @@ export const addTask = {
               category: {
                 type: "string",
                 description: "category",
-                enum: ["TODO", "INPROGRESS", "DONE"],
-                example: "TODO",
+                enum: ['to-do', 'in-progress', 'done'],
+                example: "to-do",
               },
             },
           },
@@ -60,7 +60,7 @@ export const addTask = {
     },
     responses: {
       201: {
-        description: "todo added",
+        description: "to-do added",
         content: {
           "application/json": {
             schema: {
@@ -93,7 +93,7 @@ export const addTask = {
                         },
                         priority: {
                           type: "string",
-                          example: "LOW",
+                          example: "low",
                         },
                         date: {
                           type: "string",
@@ -101,7 +101,7 @@ export const addTask = {
                         },
                         category: {
                           type: "string",
-                          example: "TODO",
+                          example: "to-do",
                         },
                       },
                     },

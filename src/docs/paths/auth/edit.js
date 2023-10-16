@@ -29,7 +29,17 @@ export const edit = {
               allOf: [
                 {
                   properties: {
-                    data: {
+                    status: {
+                      description: "Status type",
+                      type: "string",
+                      example: "OK",
+                    },
+                    code: {
+                      description: "Status code",
+                      type: "number",
+                      example: 200,
+                    },
+                    user: {
                       $ref: "#/components/schemas/User",
                     },
                   },

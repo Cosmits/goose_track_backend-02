@@ -90,6 +90,8 @@ const getCurrent = async (req, res) => {
   const { _id, email, userName, phone, skype, birthDay, avatarURL } = req.user
 
   res.json({
+    status: 'OK',
+    code: 200,
     user: {
       _id: _id,
       userName,

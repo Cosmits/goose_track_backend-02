@@ -63,7 +63,7 @@ export const getAllTasks = {
                           },
                           priority: {
                             type: "string",
-                            example: "MEDIUM",
+                            example: "medium",
                           },
                           date: {
                             type: "string",
@@ -71,7 +71,7 @@ export const getAllTasks = {
                           },
                           category: {
                             type: "string",
-                            example: "TODO",
+                            example: "to-do",
                           },
                         },
                       },

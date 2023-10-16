@@ -46,12 +46,12 @@ export const User = {
       createdAt: {
         type: "string",
         description: "Data&Time create User",
-        example: "2023-08-25T18:01:01.709Z",
+        example: "2023-10-11T18:01:01.709Z",
       },
       updatedAt: {
         type: "string",
         description: "Data&Time update User",
-        example: "2023-08-25T23:33:49.514Z",
+        example: "2023-10-11T23:33:49.514Z",
       },
     },
   }

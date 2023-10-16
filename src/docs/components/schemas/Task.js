@@ -30,13 +30,13 @@ export const Task = {
       },
       priority: {
         type: "string",
-        description: "Task priority, one of ['LOW', 'MEDIUM', 'HIGH']",
-        example: "LOW",
+        description: "Task priority, one of ['low', 'medium', 'high']",
+        example: "low",
       },
       category: {
         type: "string",
-        description: "Task category, one of ['TODO', 'INPROGRESS', 'DONE']",
-        example: "TODO",
+        description: "Task category, one of ['to-do', 'in-progress', 'done']",
+        example: "to-do",
       },
       owner: {
         type: "ObjectId",

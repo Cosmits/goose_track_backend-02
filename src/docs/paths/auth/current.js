@@ -19,10 +19,15 @@ export const current = {
               allOf: [
                 {
                   properties: {
-                    token: {
+                    status: {
+                      description: "Status type",
                       type: "string",
-                      description: "Generated json web token",
-                      example: "adsjkasnxz.csdcdfgdvgfhgfdcs.saxsa",
+                      example: "OK",
+                    },
+                    code: {
+                      description: "Status code",
+                      type: "number",
+                      example: 200,
                     },
                     user: {
                       $ref: "#/components/schemas/User",
