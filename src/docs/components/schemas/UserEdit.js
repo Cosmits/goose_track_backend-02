@@ -30,12 +30,7 @@ export const UserEdit = {
       avatarURL: {
         type: "string",
         description: "User's avatar URL",
-        example: "https://res.cloudinary.com/dnhobiphs/image/upload/v1693572737/avatars/64ef0ce090ff7bcd7e528d14.png",
-      },
-      avatar: {
-        type: "string",
-        format: "binary",
-        description: "Image file (e.g., JPEG, PNG, GIF)",
+        example: "https://s.gravatar.com/avatar/2a745bb2c0f4cbe6102562e535b00508",
       },
     },
   }
