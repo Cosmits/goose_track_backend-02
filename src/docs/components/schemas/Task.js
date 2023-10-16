@@ -1,7 +1,7 @@
 export const Task = {
   Task: {
     type: "object",
-    required: ["title", "start", "end", "date"],
+    required: ["title", "start", "end", "date", "priority", "category"],
     properties: {
       _id: {
         type: "string",

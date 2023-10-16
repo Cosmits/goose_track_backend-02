@@ -33,6 +33,11 @@ export const User = {
         description: "User's  birthDay",
         example: "01/01/2000",
       },
+      avatarURL: {
+        type: "string",
+        description: "User's avatar URL",
+        example: "https://s.gravatar.com/avatar/2a745bb2c0f4cbe6102562e535b00508",
+      },
       verify: {
         type: "boolean",
         description: "is verification email",
