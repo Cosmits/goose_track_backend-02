@@ -9,9 +9,9 @@ const birthdayRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
 
 const userSchema = new Schema(
   {
-    name: {
+    userName: {
       type: String,
-       
+      required: [true, "Need set username"],
     },
     password: {
       type: String,
@@ -33,10 +33,12 @@ const userSchema = new Schema(
     birthday: {
       type: String,
       match: birthdayRegexp,
+      default: "",
      
     },
     skype: {
       type: String,
+      default: "",
     },
     token: {
       type: String,

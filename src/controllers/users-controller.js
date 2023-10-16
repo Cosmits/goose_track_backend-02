@@ -20,7 +20,7 @@ const BASE_URL_BACK = process.env.BASE_URL_BACK
 const PORT = process.env.PORT
 
 const register = async (req, res) => {
-  const { email, password } = req.body;
+  const { email, password, userName, phone, skype, birthDay } = req.body;
   const user = await User.findOne({ email });
   if (user) throw HttpError(409, 'Email in use');
 
@@ -28,7 +28,7 @@ const register = async (req, res) => {
   const avatarURL = gravatar.url(email, { protocol: 'https' })
   const verificationToken = uuidv1();
 
-  const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL, verificationToken });
+  const newUser = await User.create({ ...req.body, password: hashPassword, avatarURL, verificationToken, userName, phone, skype, birthDay });
 
   const verifyEmail = {
     to: email,
@@ -40,8 +40,16 @@ const register = async (req, res) => {
   res.status(201).json({
     status: 'OK',
     code: 201,
-    email: newUser.email,
-    avatarURL,
+    user: {
+      _id: newUser._id,
+      userName: newUser.userName,
+      email: newUser.email,
+      phone: newUser.phone,
+      skype: newUser.skype,
+      birthDay: newUser.birthday,
+      avatarURL,
+    }
+
   });
 };
 
@@ -55,7 +63,7 @@ const login = async (req, res) => {
 
   if (!user || !passwordCompare) throw HttpError(401, 'Email or password is wrong')
 
-  const { _id: id } = user
+  const { _id: id, userName, phone, skype, birthDay, avatarURL } = user
   const payload = { id }
 
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '23h' })
@@ -67,19 +75,30 @@ const login = async (req, res) => {
     code: 200,
     token,
     user: {
+      _id: id,
+      userName,
       email,
-      subscription: user.subscription,
+      phone,
+      skype,
+      birthDay,
+      avatarURL,
     },
   })
 }
 
 const getCurrent = async (req, res) => {
-  const { email } = req.user
+  const { _id, email, userName, phone, skype, birthDay, avatarURL } = req.user
 
   res.json({
-    status: 'OK',
-    code: 200,
-    email,
+    user: {
+      _id: _id,
+      userName,
+      email,
+      phone,
+      skype,
+      birthDay,
+      avatarURL,
+    },
   })
 }
 
@@ -88,9 +107,8 @@ const logout = async (req, res) => {
   await User.findByIdAndUpdate(_id, { token: '' })
 
   res.status(204).json({
-    status: 'No Content',
     code: 204,
-    message: "User successfully logout",
+    message: 'No Content',
   })
 }
 
@@ -161,52 +179,24 @@ const verify = async (req, res) => {
 }
 
 
-// ------ Add user profile  controller--------------
-
-// const addUserProfile = async (req, res) =>{
-//   if (!req.user) {
-//     throw HttpError(401, "Not authorized")
-//     // return res.status(401).json({ message: "Not authorized" });
-//   }
-//   const {name, phone, email, birthday, skype} = req.body;
-//   const newUser = await User.create({ 
-//     name,
-//     phone,
-//     email, 
-//     birthday,
-//     skype,
-//    })
-//   res.status(201).json({
-//     user: newUser,
-//     message: "User profile created successfully",
-// });
-
-// }
-
-
 
 // ------ Update user profile  controller--------------
 const updateUserProfile = async (req, res) => {
- 
+
   if (!req.user) {
-    throw HttpError(401, "Not authorized")
-    // return res.status(401).json({ message: "Not authorized" });
+    throw HttpError(401, "Missing header with authorization token")
+
   }
   const { _id } = req.user;
-  const body = req.body; 
+  const body = req.body;
   const updatedUser = await User.findByIdAndUpdate(_id, body, { new: true });
   if (!updatedUser) {
-     // return res.status(404).json({ message: "User not found" });
     throw HttpError(404, "User not found")
 
-}
-res.status(200).json({
-  status: 'Update fields',
-  code: 200,
-  user: updatedUser,
-  message: "User profile updated successfully",
- 
-})
+  }
+  res.status(200).json({
+    data: updatedUser,
+  })
 }
 
 
@@ -219,5 +209,4 @@ export default {
   verify: ctrlWrapper(verify),
   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
   updateUserProfile: ctrlWrapper(updateUserProfile),
-  // addUserProfile: ctrlWrapper(addUserProfile),
 };
