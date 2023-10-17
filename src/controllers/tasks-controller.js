@@ -13,8 +13,8 @@ const getAllTasks = async (req, res) => {
 		{
 			owner,
 			date: { $regex: date, $options: "i" },
-		}
-		// "-owner"
+		},
+		"-owner"
 	);
 
 	res.status(200).json({
