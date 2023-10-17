@@ -6,7 +6,7 @@ import { HttpError } from "../helpers/index.js";
 const getAllReviews = async (req, res) => {
   const reviews = await Review.find({}, "-_id").populate(
     "owner",
-    "avatarURL name"
+    "avatarURL userName"
   );
   res.json(reviews);
 };
