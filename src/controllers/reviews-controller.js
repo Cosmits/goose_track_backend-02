@@ -15,7 +15,7 @@ const getOneReview = async (req, res) => {
   const { _id: owner } = req.user;
   const result = await Review.findOne({ owner });
   if (!result) {
-    throw HttpError(404, `contact with id=${id} not found`);
+    throw HttpError(404, `contact with id=${owner} not found`);
   }
   res.json(result);
 };
