@@ -12,10 +12,10 @@ const getAllReviews = async (req, res) => {
 };
 
 const getOneReview = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id: owner, userName } = req.user;
   const result = await Review.findOne({ owner });
   if (!result) {
-    throw HttpError(404, `contact with id=${owner} not found`);
+    throw HttpError(404, `user '${userName}' hasn't left a review`);
   }
   res.json(result);
 };
@@ -39,10 +39,10 @@ const updateOneReview = async (req, res) => {
 };
 
 const removeOneReview = async (req, res) => {
-  const { _id: owner } = req.user;
+  const { _id: owner, userName } = req.user;
   const result = await Review.findOneAndDelete({ owner });
   if (!result) {
-    throw HttpError(404, `contact with id=${owner} not found`);
+    throw HttpError(404, `user '${userName}' hasn't left a review`);
   }
   res.json({
     message: "Delete success",
