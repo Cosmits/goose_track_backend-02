@@ -6,25 +6,25 @@ import reviewsValidation from "../../middleware/validation/reviews-validation.js
 
 const reviewsRouter = Router();
 
-reviewsRouter.get("/", reviewsController.getAllReviews);
-reviewsRouter.get("/own", authenticate,
-  reviewsController.getOneReview
-);
+reviewsRouter.get("/",
+  reviewsController.getAllReviews);
 
-reviewsRouter.post(
-  "/own",
+reviewsRouter.get("/own",
+  authenticate,
+  reviewsController.getOneReview);
+
+reviewsRouter.post( "/own",
   authenticate,
   reviewsValidation.addReviewValidate,
-  reviewsController.addOneReview
-);
+  reviewsController.addOneReview);
 
-reviewsRouter.patch(
-  "/own",
+reviewsRouter.patch(  "/own",
   authenticate,
   reviewsValidation.updateReviewValidate,
-  reviewsController.updateOneReview
-);
+  reviewsController.updateOneReview);
 
-reviewsRouter.delete("/own", authenticate, reviewsController.removeOneReview);
+reviewsRouter.delete("/own",
+  authenticate,
+  reviewsController.removeOneReview);
 
 export default reviewsRouter;

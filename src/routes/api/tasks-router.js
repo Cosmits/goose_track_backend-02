@@ -9,9 +9,20 @@ const tasksRouter = Router();
 
 tasksRouter.use(authenticate);
 
-tasksRouter.get("/", tasksController.getAllTasks);
-tasksRouter.post("/", isValidTime, tasksValidation.taskAddValidator, tasksController.addTask);
-tasksRouter.patch("/:taskId", isValidId, isValidTime, tasksValidation.taskUpdateValidator, tasksController.updateTask);
-tasksRouter.delete("/:taskId", tasksController.deleteTask);
+tasksRouter.get("/",
+  tasksController.getAllTasks);
+
+tasksRouter.post("/",
+  isValidTime,
+  tasksValidation.taskAddValidator,
+  tasksController.addTask);
+
+tasksRouter.patch("/:taskId",
+  isValidId, isValidTime,
+  tasksValidation.taskUpdateValidator,
+  tasksController.updateTask);
+
+tasksRouter.delete("/:taskId",
+  tasksController.deleteTask);
 
 export default tasksRouter;
