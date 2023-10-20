@@ -12,8 +12,21 @@ const userRegisterValidation = Joi.object({
     .required()
     .messages({ "any.required": "missing required userName field" }),
 
-  email: Joi.string().
-    pattern(emailRegexp)
+  email: Joi.string()
+    .required()
+    .pattern(emailRegexp)
+    .messages({ "any.required": "missing required email field", }),
+
+  password: Joi.string()
+    .required()
+    .min(6)
+    .pattern(passwordRegexp)
+    .messages({ "any.required": "missing required password field", }),
+});
+
+const userLoginValidation = Joi.object({
+  email: Joi.string()
+    .pattern(emailRegexp)
     .required()
     .messages({ "any.required": "missing required email field", }),
 
@@ -22,50 +35,37 @@ const userRegisterValidation = Joi.object({
     .pattern(passwordRegexp)
     .required()
     .messages({ "any.required": "missing required password field", }),
-
-});
-
-const userLoginValidation = Joi.object({
-  email: Joi.string().
-    pattern(emailRegexp).
-    required().
-    messages({ "any.required": "missing required email field", }),
-
-  password: Joi.string()
-    .min(6)
-    .pattern(passwordRegexp)
-    .required()
-    .messages({ "any.required": "missing required password field", }),
-
 });
 
 const userEmailSchema = Joi.object({
-  email: Joi.string().pattern(emailRegexp).required().messages({
-    "any.required": "missing required email field",
-  })
+  email: Joi.string()
+    .required()
+    .pattern(emailRegexp)
+    .messages({ "any.required": "missing required email field", })
 })
 
 const userProfileSchema = Joi.object({
   userName: Joi.string()
     .messages({ "any.required": "missing required name field", }),
+  
   phone: Joi.string()
     .pattern(phoneRegexp)
-    .messages({
-      "any.required": "missing required phone field",
-    }),
+    .messages({ "any.required": "missing required phone field", }),
+  
   birthday: Joi.string()
     .regex(birthdayRegexp)
     .messages({
       'string.pattern.base': 'Invalid birthday format (DD/MM/YYYY)',
       'any.required': 'Birthday is required',
     }),
+  
   email: Joi.string()
     .pattern(emailRegexp)
     .messages({
       "any.required": "missing required email field",
     }),
+  
   skype: Joi.string(),
-
 });
 
 
