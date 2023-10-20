@@ -23,8 +23,6 @@ authRouter.post('/logout',
   authenticate,
   userController.logout);
 
-// authRouter.patch('/avatars', authenticate, upload.single('avatar'), userController.updateAvatarUser)
-
 authRouter.post("/verify",
   authenticate,
   usersValidation.userEmailValidate,
@@ -33,15 +31,11 @@ authRouter.post("/verify",
 authRouter.get("/verify/:verificationToken",
   userController.verify);
 
-// роутер для редагування полів в user-profile----------------
-
 authRouter.patch("/edit",
   authenticate,
   usersValidation.userProfileValidate,
   upload.single('avatar'),
   userController.updateUserProfile)
 
-// роутер для запису додавання  юзера в user-profile
-// authRouter.post("/user", authenticate, usersValidation.userProfileValidate, userController.addUserProfile)
 
 export default authRouter;
