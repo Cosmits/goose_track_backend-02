@@ -44,9 +44,7 @@ const removeOneReview = async (req, res) => {
   if (!result) {
     throw HttpError(404, `user '${userName}' hasn't left a review`);
   }
-  res.json({
-    message: "Delete success",
-  });
+  res.status(200).json(result);
 };
 
 export default {
