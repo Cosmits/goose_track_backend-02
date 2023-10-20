@@ -89,6 +89,7 @@ const logout = async (req, res) => {
   await User.findByIdAndUpdate(_id, { token: '' })
 
   res.status(204).json({
+    status: 'OK',
     code: 204,
     message: 'No Content',
   })
@@ -134,32 +135,6 @@ const verify = async (req, res) => {
 
 const avatarsDir = path.join('public', 'avatars')
 
-// const updateAvatarUser = async (req, res) => {
-//   const { _id } = req.user
-//   const { path: tempUpload, originalname } = req.file
-
-//   const filename = `${_id}_${originalname}`
-//   const resultUpload = path.join(avatarsDir, filename)
-
-//   await fs.rename(tempUpload, resultUpload)
-
-//   const resizeFile = await Jimp.read(resultUpload)
-//   await resizeFile.resize(250, 250).write(resultUpload)
-
-//   const avatarURL = path.join('avatars', filename)
-
-//   await User.findByIdAndUpdate(_id, { avatarURL })
-
-//   res.status(200).json({
-//     status: 'Update avatar',
-//     code: 200,
-//     avatarURL,
-//   })
-
-// }
-
-
-// ------ Update user profile  controller--------------
 const updateUserProfile = async (req, res) => {
 
   if (!req.user) throw HttpError(401, "Missing header with authorization token")
@@ -200,7 +175,6 @@ export default {
   login: ctrlWrapper(login),
   getCurrent: ctrlWrapper(getCurrent),
   logout: ctrlWrapper(logout),
-  // updateAvatarUser: ctrlWrapper(updateAvatarUser),
   verify: ctrlWrapper(verify),
   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
   updateUserProfile: ctrlWrapper(updateUserProfile),
