@@ -3,7 +3,6 @@ import { HttpError } from "../helpers/index.js";
 
 import Task from "../models/Task.js";
 
-//GET
 const getAllTasks = async (req, res) => {
 	const { _id: owner } = req.user;
 	const { date } = req.query;
@@ -24,7 +23,6 @@ const getAllTasks = async (req, res) => {
 	});
 };
 
-//ADD
 const addTask = async (req, res) => {
 	const { _id: owner } = req.user;
 
@@ -37,7 +35,6 @@ const addTask = async (req, res) => {
 	});
 };
 
-//UPDATE
 const updateTask = async (req, res) => {
 	const { _id: owner } = req.user;
 	const { taskId: _id } = req.params;
@@ -52,7 +49,6 @@ const updateTask = async (req, res) => {
 	});
 };
 
-//DELETE
 const deleteTask = async (req, res) => {
 	const { _id: owner } = req.user;
 	const { taskId: _id } = req.params;
