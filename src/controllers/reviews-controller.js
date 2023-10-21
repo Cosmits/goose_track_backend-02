@@ -33,7 +33,7 @@ const addOneReview = async (req, res) => {
   const result = await Review.create({ ...req.body, owner });
   res.status(201).json({
     status: "OK",
-    code: 200,
+    code: 201,
     data: result,
   });
 };
