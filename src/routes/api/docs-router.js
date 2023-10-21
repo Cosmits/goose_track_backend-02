@@ -10,9 +10,9 @@ const options = {
     url: `http://localhost:5000/docs/swagger.json`,
   },
 };
-docRouter.get("/docs/swagger.json", (req, res) => res.json(swaggerDocument));
+docRouter.get("/swagger.json", (req, res) => res.json(swaggerDocument));
 
-docRouter.use("/docs", serveFiles(swaggerDocument, options));
-docRouter.get("/docs", setup(swaggerDocument, options));
+docRouter.use("/", serveFiles(swaggerDocument, options));
+docRouter.get("/", setup(swaggerDocument, options));
 
 export default docRouter;
