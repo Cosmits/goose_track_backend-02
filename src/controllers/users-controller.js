@@ -33,7 +33,7 @@ const register = async (req, res) => {
   });
   if (!currentUser) throw HttpError(500, 'User not created in the database');
 
-  await sendEmail(verificationToken, email);
+  await sendEmail(verificationToken, email, userName);
 
   const sendUserData = clearSecretUserField(currentUser);
 
@@ -103,7 +103,7 @@ const resendVerifyEmail = async (req, res) => {
 
   if (user.email !== req.user.email) throw HttpError(401, "Email not found in this user")
 
-  await sendEmail(user.verificationToken, email);
+  await sendEmail(user.verificationToken, email, user.userName);
 
   res.status(200).json({
     status: 'OK',

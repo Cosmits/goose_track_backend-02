@@ -9,6 +9,25 @@ export const verify = {
         BearerAuth: [],
       },
     ],
+    requestBody: {
+      description: "An example of a request object for user login",
+      required: true,
+      content: {
+        "application/json": {
+          schema: {
+            type: "object",
+            required: ["email", "password"],
+            properties: {
+              email: {
+                type: "string",
+                description: "E-mail address",
+                example: "email@gmail.com",
+              },
+            },
+          },
+        },
+      },
+    },
     responses: {
       200: {
         description: "Verification email sent",

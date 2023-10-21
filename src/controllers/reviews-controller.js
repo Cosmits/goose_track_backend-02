@@ -8,7 +8,11 @@ const getAllReviews = async (req, res) => {
     "owner",
     "avatarURL userName"
   );
-  res.json(reviews);
+  res.status(200).json({
+    status: "OK",
+    code: 200,
+    data: reviews,
+  });
 };
 
 const getOneReview = async (req, res) => {
@@ -17,13 +21,21 @@ const getOneReview = async (req, res) => {
   if (!result) {
     throw HttpError(404, `user '${userName}' hasn't left a review`);
   }
-  res.json(result);
+  res.status(200).json({
+    status: "OK",
+    code: 200,
+    data: result,
+  });
 };
 
 const addOneReview = async (req, res) => {
   const { _id: owner } = req.user;
   const result = await Review.create({ ...req.body, owner });
-  res.status(201).json(result);
+  res.status(201).json({
+    status: "OK",
+    code: 200,
+    data: result,
+  });
 };
 
 const updateOneReview = async (req, res) => {
@@ -35,7 +47,11 @@ const updateOneReview = async (req, res) => {
       new: true,
     }
   );
-  res.json(result);
+  res.status(200).json({
+    status: "OK",
+    code: 200,
+    data: result,
+  });
 };
 
 const removeOneReview = async (req, res) => {
@@ -44,7 +60,11 @@ const removeOneReview = async (req, res) => {
   if (!result) {
     throw HttpError(404, `user '${userName}' hasn't left a review`);
   }
-  res.status(200).json(result);
+  res.status(200).json({
+    status: "OK",
+    code: 200,
+    data: result,
+  });
 };
 
 export default {

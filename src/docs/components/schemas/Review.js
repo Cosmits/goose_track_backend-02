@@ -8,14 +8,14 @@ export const Review = {
         description: "Backend-generated unique identifier.",
         example: "63fa1eb8ed1b46fa6fd8e857",
       },
-      review: {
+      comment: {
         type: "string",
         description: "Review text",
-        example: "Some review",
+        example: "Some comment",
       },
       rating: {
         type: "number",
-        description: "App rating must be between 1-5",
+        description: "App rating must be between, *(0-5)",
         example: 5,
       },
       owner: {
