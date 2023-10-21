@@ -1,4 +1,4 @@
-import { validateBody } from "../../decorators/validateBody.js";
+import { validateBody } from "../../decorators/index.js";
 import tasksSchema from "../../schemas/tasks-schema.js";
 
 const taskAddValidator = validateBody(tasksSchema.taskSchemaValidation);

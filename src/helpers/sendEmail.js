@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
 
-// import "dotenv/config";
 import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -19,14 +18,6 @@ const nodemailerConfig = {
 };
 
 const transport = nodemailer.createTransport(nodemailerConfig);
-
-/*
-const data = {
-    to: "email@mail.com",
-    subject: "Test email",
-    html: "<strong>Test email</strong>"
-};
-*/
 
 const sendEmail = (verificationToken, email) => {
   

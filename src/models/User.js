@@ -1,40 +1,37 @@
 import { Schema, model } from "mongoose";
-import { handleMongooseError, runValidateAtUpdate } from '../schemas/mongooseHooks.js';
-// import { number } from "joi";
+import { handleMongooseError, runValidateAtUpdate } from '../schemas/mongoose-hooks.js';
 
-const emailRegexp = /^[a-zA-Z0-9._%+-]+@([a-zA-Z0-9_-]+).([a-zA-Z]{2,5})$/;
-const phoneRegexp = /^\d{2}\s\(\d{3}\)\s\d{3}\s\d{2}\s\d{2}$/;
-const birthdayRegexp = /^\d{2}\/\d{2}\/\d{4}$/;
-// const passwordRegexp = /^(?=.*\d)[A-Za-z\d]{6,}$/;
+import { globalRegex } from "../helpers/index.js";
+const { emailRegexp, phoneRegexp, birthdayRegexp } = globalRegex;
+
 
 const userSchema = new Schema(
   {
     userName: {
       type: String,
-      required: [true, "Need set username"],
+      required: [true, "Need set username, *(User)"],
     },
     password: {
       type: String,
       minLength: 6,
-      required: [true, "Need set a password for user"],
+      required: [true, "Need set a password for user, *(min length 6 characters, may use symbols A-Za-z0-9)"],
     },
     email: {
       type: String,
       match: emailRegexp,
       unique: true,
-      required: [true, "Need set an Email "],
+      required: [true, "Need set an Email, *(any@mail.com) "],
     },
     phone: {
       type: String,
-      match: [phoneRegexp, "Invalid phone number format."],
+      match: [phoneRegexp, "Invalid phone number format, *(12 (345) 678 90 12)"],
       default: "",
     },
-
     birthday: {
       type: String,
       match: birthdayRegexp,
+      required: [false, "'Invalid birthday format, *(DD/MM/YYYY)"],
       default: "",
-
     },
     skype: {
       type: String,
@@ -53,7 +50,7 @@ const userSchema = new Schema(
     },
     verificationToken: {
       type: String,
-      required: [true, 'Verify token is required'],
+      required: [true, 'Verify token is required, *(98234082-3123-324234-1234143)'],
     },
   },
   { versionKey: false, timestamps: true }

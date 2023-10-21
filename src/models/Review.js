@@ -2,7 +2,7 @@ import { Schema, model } from "mongoose";
 import {
   handleMongooseError,
   runValidateAtUpdate,
-} from "../schemas/mongooseHooks.js";
+} from "../schemas/mongoose-hooks.js";
 
 const reviewSchema = new Schema(
   {
@@ -10,16 +10,16 @@ const reviewSchema = new Schema(
       type: Number,
       min: [0, "too few rating"],
       max: [5, "too high rating"],
-      required: [true, "Set rating for review"],
+      required: [true, "Set rating for review, *(0-5)"],
     },
     comment: {
       type: String,
-      required: [true, "Set comment for review"],
+      required: [true, "Set comment for review, *(any string)"],
     },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "user",
-      required: [true, "Set owner for review"],
+      required: [true, "Set owner for review, *(User ID)"],
       unique: true,
     },
   },
