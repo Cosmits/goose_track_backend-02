@@ -6,7 +6,8 @@ import Task from "../models/Task.js";
 const getAllTasks = async (req, res) => {
 	const { _id: owner } = req.user;
 	const { date } = req.query;
-	if (!date) throw HttpError(404, `You did something wrong :()`);
+	
+	if (!date) throw HttpError(404, `The query param "date" must be use`);
 
 	const result = await Task.find(
 		{
