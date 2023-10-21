@@ -13,12 +13,12 @@ reviewsRouter.get("/own",
   authenticate,
   reviewsController.getOneReview);
 
-reviewsRouter.post( "/own",
+reviewsRouter.post("/own",
   authenticate,
   reviewsValidation.addReviewValidate,
   reviewsController.addOneReview);
 
-reviewsRouter.patch(  "/own",
+reviewsRouter.patch("/own",
   authenticate,
   reviewsValidation.updateReviewValidate,
   reviewsController.updateOneReview);

@@ -1,22 +1,32 @@
 import { Schema, model } from "mongoose";
-import { handleMongooseError, runValidateAtUpdate } from "../schemas/mongooseHooks.js";
+import { handleMongooseError, runValidateAtUpdate } from "../schemas/mongoose-hooks.js";
 
-export const priorityList = ["low", "medium", "high"];
-export const categoryList = ["to-do", "in-progress", "done"];
-export const timeRegex = /^([0-1][0-9]|2[0-3]):[0-5][0-9]$/;
-export const dateRegex = /^20[0-2][0-9]-((0[1-9])|(1[0-2]))-(0[1-9]|[1-2][0-9]|3[0-1])$/;
+import { globalRegex } from "../helpers/index.js";
+const { priorityList, categoryList, timeRegex, dateRegex } = globalRegex;
 
 const taskSchema = new Schema(
 	{
-		owner: { type: Schema.Types.ObjectId, ref: "user", required: true },
-		title: { type: String, required: [true, "Set title for your task"] },
+		owner: {
+			type: Schema.Types.ObjectId,
+			ref: "user", required: true
+		},
+		title: {
+			type: String,
+			required: [true, "Set title for your task, *(any string)"]
+		},
 
-		start: { type: String, match: [timeRegex, "Is not valid Time format"], required: true },
-		end: { type: String, match: [timeRegex, "Is not valid Time format"], required: true },
+		start: {
+			type: String,
+			match: [timeRegex, "Is not valid Time format, *(09:12)"], required: true
+		},
+		end: {
+			type: String,
+			match: [timeRegex, "Is not valid Time format, *(17:33)"], required: true
+		},
 
 		priority: { type: String, enum: priorityList, required: true },
 
-		date: { type: String, match: [dateRegex, "Is not valid Date format"], required: true },
+		date: { type: String, match: [dateRegex, "Is not valid Date format, *(2023-10-20)"], required: true },
 		category: { type: String, enum: categoryList, required: true },
 	},
 	{ versionKey: false, timestamps: false }

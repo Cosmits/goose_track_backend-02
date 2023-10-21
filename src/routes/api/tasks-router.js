@@ -17,12 +17,12 @@ tasksRouter.post("/",
   tasksValidation.taskAddValidator,
   tasksController.addTask);
 
-tasksRouter.patch("/:taskId",
+tasksRouter.patch("/:id",
   isValidId, isValidTime,
   tasksValidation.taskUpdateValidator,
   tasksController.updateTask);
 
-tasksRouter.delete("/:taskId",
+tasksRouter.delete("/:id",
   tasksController.deleteTask);
 
 export default tasksRouter;

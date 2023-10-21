@@ -1,6 +1,5 @@
 import nodemailer from "nodemailer";
 
-// import "dotenv/config";
 import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
@@ -20,21 +19,24 @@ const nodemailerConfig = {
 
 const transport = nodemailer.createTransport(nodemailerConfig);
 
-/*
-const data = {
-    to: "email@mail.com",
-    subject: "Test email",
-    html: "<strong>Test email</strong>"
-};
-*/
-
-const sendEmail = (verificationToken, email) => {
+const sendEmail = (verificationToken, email, name) => {
   
   const verifyEmail = {
     from: UKR_NET_EMAIL_FROM,
     to: email,
-    subject: "Verify email",
-    html: `<a target="_blank" href="${BASE_URL_BACK}:${PORT}/users/verify/${verificationToken}">Click to verify email</a>`
+    subject: "Activate your GooseTrack02 account",
+    html: `<div style="font-family: Arial, sans-serif; width: 100%; background-color: #dcebf7; padding: 20px;">
+      <div style="max-width: 600px; margin: 0 auto; background-color: white; padding: 20px; border-radius: 10px;">
+        <h1 style="text-align: center; color:#3e85f3; font-size: 32px;"><b>Hello from GooseTrack02!</b></h1>
+        <h3 style="text-align: center; color:#171820; font-size: 18px;">We're glad you're here, ${name}</h3>
+        <div style="margin: 0 auto; text-align: center;">
+        <a target="_blank" style="display: inline-block; margin: 0 auto; font-size: 18px; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="${BASE_URL_BACK}:${PORT}/users/verify/${verificationToken}">Activate your Account</a>
+        </div>
+        <br>
+        <p style="text-align: center; color: #171820; font-size: 18px;">If you didn't register for an account, you can ignore this email.</p>
+        <p style="text-align: center; color: #171820; font-size: 18px;">Best regards GooseTrack02</p>
+      </div>
+    </div>`,
   };
 
   const letter = { ...verifyEmail };

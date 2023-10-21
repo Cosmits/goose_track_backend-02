@@ -73,7 +73,7 @@ export const getAllTasks = {
                           },
                           date: {
                             type: "string",
-                            example: "2023-09-01",
+                            example: "2023-10-01",
                           },
                           category: {
                             type: "string",

@@ -36,10 +36,10 @@ export const getOneReview = {
                           type: "ObjectId",
                           example: "6528510dc5a30471deaa0fd2",
                         },
-                        review: {
+                        comment: {
                           type: "string",
-                          description: "review",
-                          example: "Some review",
+                          description: "comment",
+                          example: "Some comment",
                         },
                         rating: {
                           type: "string",

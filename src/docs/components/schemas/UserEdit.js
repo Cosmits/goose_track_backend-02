@@ -29,8 +29,10 @@ export const UserEdit = {
       },
       avatarURL: {
         type: "string",
-        description: "User's avatar URL",
-        example: "https://s.gravatar.com/avatar/2a745bb2c0f4cbe6102562e535b00508",
+        format: "binary",
+        nullable: true,
+        description: "User's avatar file",
+        // example: "https://s.gravatar.com/avatar/2a745bb2c0f4cbe6102562e535b00508",
       },
     },
   }

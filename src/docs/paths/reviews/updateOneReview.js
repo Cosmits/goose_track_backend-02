@@ -18,15 +18,15 @@ export const updateOneReview = {
             type: "object",
             required: [],
             properties: {
-              review: {
+              comment: {
                 type: "string",
-                description: "review",
-                example: "Some review",
+                description: "comment",
+                example: "Some comment",
               },
               rating: {
                 type: "string",
                 description: "rating",
-                enum: [1, 2, 3, 4, 5],
+                enum: [0, 1, 2, 3, 4, 5],
                 example: 5,
               },
             },
@@ -61,10 +61,10 @@ export const updateOneReview = {
                           type: "ObjectId",
                           example: "6528510dc5a30471deaa0fd2",
                         },
-                        review: {
+                        comment: {
                           type: "string",
-                          description: "review",
-                          example: "Some review",
+                          description: "comment",
+                          example: "Some comment",
                         },
                         rating: {
                           type: "string",

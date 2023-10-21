@@ -15,7 +15,7 @@ const getAllTasks = async (req, res) => {
 		},
 		"-owner"
 	);
-
+	
 	res.status(200).json({
 		status: "OK",
 		code: 200,

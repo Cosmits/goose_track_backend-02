@@ -65,20 +65,21 @@ BASE_URL_FRONT=http://localhost
 
 1. [Hennadii Samofal](https://github.com/Cosmits)
 2. [Illia Shatokhin](https://github.com/Illia-Shatokhin)
+2. [Kateryna Kharkova](https://github.com/KaterinaKha)
 3. [Gabriella Marusyak](https://github.com/GabriellaMar)
 4. [Ruslana Onyshchuk](https://github.com/Ruslaana)
 
 
 ### Commands:
 
-- `npm start` &mdash; server start in production mode
-- `npm run start:dev` &mdash; start the server in development mode
-- `npm run lint` &mdash; run a code check run with eslint, must run before each PR and fix all linter errors
-- `npm lint:fix` &mdash; the same linter check, but with automatic fixes for simple errors
-- `npm run test` &mdash; running tests
-- `npm run clearCache` &mdash; clear the test cache
+- `yarn start` &mdash; server start in production mode
+- `yarn start:dev` &mdash; start the server in development mode
+- `yarn lint` &mdash; run a code check run with eslint, must run before each PR and fix all linter errors
+- `yarn lint:fix` &mdash; the same linter check, but with automatic fixes for simple errors
+- `yarn test` &mdash; running tests
+- `yarn clearCache` &mdash; clear the test cache
 
-Create files
+### Create files:  
 .env.development  
-.env.production
-.env.forTest
+.env.production  
+.env.test

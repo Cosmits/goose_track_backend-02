@@ -34,7 +34,7 @@ authRouter.get("/verify/:verificationToken",
 authRouter.patch("/edit",
   authenticate,
   usersValidation.userProfileValidate,
-  upload.single('avatar'),
+  upload.single('avatarURL'),
   userController.updateUserProfile)
 
 

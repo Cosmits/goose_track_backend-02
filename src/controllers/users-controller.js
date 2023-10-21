@@ -8,10 +8,8 @@ import fs from 'fs/promises';
 import { v1 as uuidv1 } from 'uuid'
 
 import User from '../models/User.js';
-import HttpError from '../helpers/HttpError.js';
-import ctrlWrapper from '../decorators/ctrlWrapper.js';
-import sendEmail from '../helpers/sendEmail.js';
-import clearSecretUserField from '../helpers/clearSecretUserField.js';
+import { ctrlWrapper} from '../decorators/index.js';
+import { HttpError, sendEmail, clearSecretUserField } from '../helpers/index.js';
 
 import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
@@ -23,20 +21,19 @@ const register = async (req, res) => {
   const { email, password, userName } = req.body;
 
   const user = await User.findOne({ email });
-  if (user) throw HttpError(409, 'Email in use');
+  if (user) throw HttpError(409, 'Email in used');
 
   const hashPassword = await bcrypt.hash(password, 7);
   const avatarURL = gravatar.url(email, { protocol: 'https' })
   const verificationToken = uuidv1();
-  console.log("🚀 ~ file: users-controller.js:29 ~ register ~ verificationToken:", email)
 
   const currentUser = await User.create({
     userName, email, password: hashPassword,
-    avatarURL, verificationToken, phone: "", skype: "", birthday: ""
+    avatarURL, verificationToken
   });
   if (!currentUser) throw HttpError(500, 'User not created in the database');
 
-  await sendEmail(verificationToken, email);
+  await sendEmail(verificationToken, email, userName);
 
   const sendUserData = clearSecretUserField(currentUser);
 
@@ -106,7 +103,7 @@ const resendVerifyEmail = async (req, res) => {
 
   if (user.email !== req.user.email) throw HttpError(401, "Email not found in this user")
 
-  await sendEmail(user.verificationToken, email);
+  await sendEmail(user.verificationToken, email, user.userName);
 
   res.status(200).json({
     status: 'OK',
@@ -136,8 +133,6 @@ const verify = async (req, res) => {
 const avatarsDir = path.join('public', 'avatars')
 
 const updateUserProfile = async (req, res) => {
-
-  if (!req.user) throw HttpError(401, "Missing header with authorization token")
 
   const { _id } = req.user;
 

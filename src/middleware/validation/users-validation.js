@@ -1,5 +1,5 @@
 import validateBody from "../../decorators/validateBody.js";
-import usersSchemas from "../../schemas/userValidation.js";
+import usersSchemas from "../../schemas/users-schema.js";
 
 const userRegisterValidate = validateBody(usersSchemas.userRegisterValidation);
 
