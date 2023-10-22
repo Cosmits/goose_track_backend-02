@@ -6,7 +6,7 @@ const reviewsSchema = Joi.object({
     .required()
     .min(1)
     .max(5)
-    .messages({ "any.required": "missing required rating field, *(0-5)", }),
+    .messages({ "any.required": "missing required rating field, *(1-5)", }),
   
   comment: Joi.string()
     .required()

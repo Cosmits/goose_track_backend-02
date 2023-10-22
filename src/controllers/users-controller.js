@@ -135,22 +135,21 @@ const avatarsDir = path.join('public', 'avatars')
 const updateUserProfile = async (req, res) => {
 
   const { _id } = req.user;
-
-  const { path: tempUpload, originalname } = req.file
-
-  const filename = `${_id}_${originalname}`
-  const resultUpload = path.join(avatarsDir, filename)
-
-  await fs.rename(tempUpload, resultUpload)
-
-  const resizeFile = await Jimp.read(resultUpload)
-  await resizeFile.resize(250, 250).write(resultUpload)
-
-  const avatarURL = path.join('avatars', filename)
-
   const body = req.body;
 
-  body.avatarURL = `${BASE_URL_BACK}/${avatarURL.replace("\\", "/")}`;
+  if (req.file) {
+    const { path: tempUpload, originalname } = req.file
+    const filename = `${_id}_${originalname}`
+    const resultUpload = path.join(avatarsDir, filename)
+    
+    await fs.rename(tempUpload, resultUpload)
+ 
+    const resizeFile = await Jimp.read(resultUpload)
+    await resizeFile.resize(250, 250).write(resultUpload)
+    
+    const avatarURL = path.join('avatars', filename)
+    body.avatarURL = `${BASE_URL_BACK}/${avatarURL.replace("\\", "/")}`;
+  }
 
   const updatedUser = await User.findByIdAndUpdate(_id, body, { new: true });
   if (!updatedUser) throw HttpError(404, "User not found")

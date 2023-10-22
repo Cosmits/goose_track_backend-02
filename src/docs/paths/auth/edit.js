@@ -12,7 +12,7 @@ export const edit = {
     requestBody: {
       description: "An example of a request object for updating user",
       content: {
-        "multipart/form-data:": {
+        "multipart/form-data": {
           schema: {
             $ref: "#/components/schemas/UserEdit",
           },

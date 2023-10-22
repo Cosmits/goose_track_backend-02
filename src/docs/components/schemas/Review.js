@@ -15,7 +15,7 @@ export const Review = {
       },
       rating: {
         type: "number",
-        description: "App rating must be between, *(0-5)",
+        description: "App rating must be between, *(1-5)",
         example: 5,
       },
       owner: {
