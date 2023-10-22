@@ -39,7 +39,7 @@ export const getAllReviews = {
                             example: "Some comment",
                           },
                           rating: {
-                            type: "string",
+                            type: "number",
                             description: "rating",
                             example: 5,
                           },

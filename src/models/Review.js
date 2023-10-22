@@ -8,9 +8,9 @@ const reviewSchema = new Schema(
   {
     rating: {
       type: Number,
-      min: [0, "too few rating"],
+      min: [1, "too few rating"],
       max: [5, "too high rating"],
-      required: [true, "Set rating for review, *(0-5)"],
+      required: [true, "Set rating for review, *(1-5)"],
     },
     comment: {
       type: String,
