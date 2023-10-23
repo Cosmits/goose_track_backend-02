@@ -4,11 +4,6 @@ export const verify = {
     summary: "Send verify Email",
     description: "This route send the user verification email",
     operationId: "verify",
-    security: [
-      {
-        BearerAuth: [],
-      },
-    ],
     requestBody: {
       description: "An example of a request object for user login",
       required: true,
@@ -42,8 +37,8 @@ export const verify = {
           },
         },
       },
-      401: {
-        description: "Not authorized",
+      404: {
+        description: "User not found",
       },
       500: {
         description: "Server error",

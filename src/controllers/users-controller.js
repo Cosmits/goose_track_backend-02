@@ -44,18 +44,17 @@ const register = async (req, res) => {
   });
 };
 
+
 const login = async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({ email });
   const passwordCompare = await bcrypt.compare(password, user.password)
 
-  // if (!user.verify) throw HttpError(401, "Email not verify"); // throw HttpError(401, "Email or password invalid");
-
-  if (!user || !passwordCompare) throw HttpError(401, 'Email or password is wrong')
+  if (!user.verify) throw HttpError(401, "Email not verify");
+  if (!user || !passwordCompare) throw HttpError(401, 'Email or password is wrong');
 
   const payload = { id: user._id }
-
   const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '23h' })
 
   const currentUser = await User.findByIdAndUpdate(user._id, { token }, { new: true })
@@ -71,6 +70,7 @@ const login = async (req, res) => {
   })
 }
 
+
 const getCurrent = async (req, res) => {
   const sendUserData = clearSecretUserField(req.user);
 
@@ -80,6 +80,7 @@ const getCurrent = async (req, res) => {
     user: sendUserData,
   })
 }
+
 
 const logout = async (req, res) => {
   const { _id } = req.user
@@ -98,20 +99,18 @@ const resendVerifyEmail = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (!user) throw HttpError(404, "Email not found")
-
   if (user.verify) throw HttpError(400, "Email already verify")
-
-  if (user.email !== req.user.email) throw HttpError(401, "Email not found in this user")
 
   await sendEmail(user.verificationToken, email, user.userName);
 
   res.status(200).json({
     status: 'OK',
     code: 200,
-    message: "Verify email resend success",
+    message: "Verification email sent",
     email
   })
 }
+
 
 const verify = async (req, res) => {
   const { verificationToken } = req.params;
