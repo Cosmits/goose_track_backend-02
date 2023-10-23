@@ -30,7 +30,7 @@ const sendEmail = (verificationToken, email, name) => {
         <h1 style="text-align: center; color:#3e85f3; font-size: 32px;"><b>Hello from GooseTrack02!</b></h1>
         <h3 style="text-align: center; color:#171820; font-size: 18px;">We're glad you're here, ${name}</h3>
         <div style="margin: 0 auto; text-align: center;">
-        <a target="_blank" style="display: inline-block; margin: 0 auto; font-size: 18px; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="${BASE_URL_FRONT}/users/verify/${verificationToken}">Activate your Account</a>
+        <a target="_blank" style="display: inline-block; margin: 0 auto; font-size: 18px; background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px;" href="${BASE_URL_FRONT}/send-verify-email/${verificationToken}">Activate your Account</a>
         </div>
         <br>
         <p style="text-align: center; color: #171820; font-size: 18px;">If you didn't register for an account, you can ignore this email.</p>
