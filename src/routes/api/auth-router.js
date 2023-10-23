@@ -23,19 +23,17 @@ authRouter.post('/logout',
   authenticate,
   userController.logout);
 
-authRouter.post("/verify",
-  authenticate,
-  usersValidation.userEmailValidate,
-  userController.resendVerifyEmail);
-
-authRouter.get("/verify/:verificationToken",
-  userController.verify);
-
 authRouter.patch("/edit",
   authenticate,
   usersValidation.userProfileValidate,
   upload.single('avatarURL'),
   userController.updateUserProfile)
 
+authRouter.post("/verify",
+  usersValidation.userEmailValidate,
+  userController.resendVerifyEmail);
+
+authRouter.get("/verify/:verificationToken",
+  userController.verify);
 
 export default authRouter;
