@@ -50,12 +50,6 @@ export const updateTask = {
                 enum: ['low', 'medium', 'high'],
                 example: "low",
               },
-              date: {
-                type: "string",
-                description: "current date",
-                example: "2023-10-01",
-                pattern: "^20dd-(0[1-9]|1[012])-(0[1-9]|[12][0-9]|3[01])$",
-              },
               category: {
                 type: "string",
                 description: "category",
