@@ -1,7 +1,7 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import Jimp from 'jimp';
-import gravatar from 'gravatar';
+// import gravatar from 'gravatar';
 
 import path from 'path'
 import fs from 'fs/promises';
@@ -24,7 +24,8 @@ const register = async (req, res) => {
   if (user) throw HttpError(409, 'Email in used');
 
   const hashPassword = await bcrypt.hash(password, 7);
-  const avatarURL = gravatar.url(email, { protocol: 'https' })
+  // const avatarURL = gravatar.url(email, { protocol: 'https' })
+  const avatarURL = ""
   const verificationToken = uuidv1();
 
   const currentUser = await User.create({
