@@ -21,7 +21,7 @@ export const User = {
       phone: {
         type: "string",
         description: "User's phone",
-        example: "38 (067) 000 00 00",
+        example: "+380671234567",
       },
       skype: {
         type: "string",
