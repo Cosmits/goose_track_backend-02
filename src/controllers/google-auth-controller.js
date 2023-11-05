@@ -29,15 +29,9 @@ const googleAuth = async (req, res) => {
 
 const googleRedirect = async (req, res) => {
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-  console.log("🚀 ~ file: google-auth-controller.js:36 ~ googleRedirect ~ fullUrl:", fullUrl)
   const urlObj = URL.parse(fullUrl, true);
-  console.log("🚀 ~ file: google-auth-controller.js:37 ~ googleRedirect ~ urlObj:", urlObj)
-
   const urlParams = urlObj.query;
-  console.log("🚀 ~ file: google-auth-controller.js:40 ~ googleRedirect ~ urlParams:", urlParams)
-
   const code = urlParams.code;
-  console.log("🚀 ~ file: google-auth-controller.js:43 ~ googleRedirect ~ code:", code)
 
   const tokenData = await axios({
     url: `https://oauth2.googleapis.com/token`,
@@ -59,50 +53,34 @@ const googleRedirect = async (req, res) => {
     },
   });
 
-  const user = await User.findOne({ email: userData.data.email });
-  if (user) {
-    const payload = {
-      id: user._id,
+  let user = await User.findOne({ email: userData.data.email });
+  if (!user) {
+    const hashedPassword = await bcrypt.hash(userData.data.email, 10);
+
+    const userBody = {
+      email: userData.data.email,
+      userName: userData.data.name,
+      avatarURL: userData.data.picture,
+      password: hashedPassword,
     };
 
-    const refreshToken = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: '23h',
-    });
-
-    await User.findByIdAndUpdate(user._id, {
-      refreshToken,
-      isGoogleAuth: true,
-    });
-
-    return res.redirect(`${process.env.FRONTEND_URL}?token=${refreshToken}`);
+    user = await User.create(userBody);
   }
 
-  const hashedPassword = await bcrypt.hash(userData.data.email, 10);
-
-  const userBody = {
-    email: userData.data.email,
-    userName: userData.data.name,
-    avatarURL: userData.data.picture,
-    password: hashedPassword,
-  };
-
-  const newUser = await User.create(userBody);
-
   const payload = {
-    id: newUser._id,
+    id: user._id,
   };
+
   const accessToken = jwt.sign(payload, process.env.JWT_SECRET, {
     expiresIn: '23h',
   });
 
-  await User.findByIdAndUpdate(newUser._id, {
+  await User.findByIdAndUpdate(user._id, {
     token: accessToken,
   });
 
-  return res.redirect(`${process.env.BASE_URL_FRONT}?token=${accessToken}`);
+  return res.redirect(`${process.env.FRONTEND_URL}/?token=${accessToken}`);
 };
-
-
 
 export default {
   googleAuth: ctrlWrapper(googleAuth),
