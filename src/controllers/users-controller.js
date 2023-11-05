@@ -7,15 +7,16 @@ import path from 'path'
 import fs from 'fs/promises';
 import { v1 as uuidv1 } from 'uuid'
 
+
 import User from '../models/User.js';
-import { ctrlWrapper} from '../decorators/index.js';
+import Task from '../models/Task.js';
+import Review from '../models/Review.js';
+
+import { ctrlWrapper } from '../decorators/index.js';
 import { HttpError, sendEmail, clearSecretUserField } from '../helpers/index.js';
 
 import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
-
-const JWT_SECRET = process.env.JWT_SECRET
-const BASE_URL_BACK = process.env.BASE_URL_BACK
 
 const register = async (req, res) => {
   const { email, password, userName } = req.body;
@@ -56,7 +57,7 @@ const login = async (req, res) => {
   if (!user || !passwordCompare) throw HttpError(401, 'Email or password is wrong');
 
   const payload = { id: user._id }
-  const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '23h' })
+  const token = jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '23h' })
 
   const currentUser = await User.findByIdAndUpdate(user._id, { token }, { new: true })
   if (!currentUser) throw HttpError(500, 'User not created in the database');
@@ -141,14 +142,14 @@ const updateUserProfile = async (req, res) => {
     const { path: tempUpload, originalname } = req.file
     const filename = `${_id}_${originalname}`
     const resultUpload = path.join(avatarsDir, filename)
-    
+
     await fs.rename(tempUpload, resultUpload)
- 
+
     const resizeFile = await Jimp.read(resultUpload)
     await resizeFile.resize(250, 250).write(resultUpload)
-    
+
     const avatarURL = path.join('avatars', filename)
-    body.avatarURL = `${BASE_URL_BACK}/${avatarURL.replace("\\", "/")}`;
+    body.avatarURL = `${process.env.BASE_URL_BACK}/${avatarURL.replace("\\", "/")}`;
   }
 
   const updatedUser = await User.findByIdAndUpdate(_id, body, { new: true });
@@ -163,6 +164,52 @@ const updateUserProfile = async (req, res) => {
   })
 }
 
+const changePassword = async (req, res) => {
+  const { _id, password } = req.user;
+  const { newPassword, oldPassword } = req.body;
+  if (newPassword === oldPassword) throw HttpError(400, 'New and old password cant be equals');
+
+  const isComparePassword = await bcrypt.compare(oldPassword, password);
+
+  if (!isComparePassword) throw HttpError(401, 'Password invalid');
+
+  const hashedNewPassword = await bcrypt.hash(newPassword, 10);
+
+  const user = await User.findByIdAndUpdate(
+    _id,
+    { password: hashedNewPassword },
+    { new: true }
+  );
+
+  if (!user) throw HttpError(404);
+
+  res.status(200).json({
+    status: "OK",
+    code: 200,
+    message: 'Password change success'
+  });
+};
+
+const removeUserProfile = async (req, res) => {
+  const { _id } = req.user;
+  const { secretKey } = req.body;
+
+  const isSecretKeyCompare = _id.toString() === secretKey;
+  if (!isSecretKeyCompare) throw HttpError(401, 'Secret key is invalid');
+
+  await Task.deleteMany({ owner: _id });
+  await Review.deleteMany({ owner: _id });
+  const result = await User.findOneAndDelete({ _id });
+  if (!result) throw HttpError(404, `User with ID '${_id}' not found`);
+
+  res.status(200).json({
+    status: "OK",
+    code: 200,
+    data: result,
+    message: "User has been removed",
+  });
+};
+
 
 export default {
   register: ctrlWrapper(register),
@@ -172,4 +219,7 @@ export default {
   verify: ctrlWrapper(verify),
   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
   updateUserProfile: ctrlWrapper(updateUserProfile),
+  
+  changePassword: ctrlWrapper(changePassword),
+  removeUserProfile: ctrlWrapper(removeUserProfile),
 };
