@@ -1,4 +1,4 @@
-import queryString from 'queryString'
+import querystring from 'querystring'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
@@ -10,7 +10,7 @@ import dotenv from 'dotenv';
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
 
 const googleAuth = async (req, res) => {
-  const stringifiedParams = queryString.stringify({
+  const stringifiedParams = querystring.stringify({
     client_id: process.env.GOOGLE_CLIENT_ID,
     redirect_uri: `${process.env.BASE_URL_BACK}/users/google-redirect`,
     scope: [
