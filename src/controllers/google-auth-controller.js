@@ -2,7 +2,7 @@ import querystring from 'querystring'
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 import axios from 'axios';
-import { URL } from 'url';
+import parseUrl from 'url-parse';
 
 import User from '../models/User.js';
 import { ctrlWrapper } from '../decorators/index.js';
@@ -30,7 +30,7 @@ const googleAuth = async (req, res) => {
 
 const googleRedirect = async (req, res) => {
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-  const urlObj = URL.parse(fullUrl, true);
+  const urlObj = parseUrl (fullUrl, true);
   const urlParams = urlObj.query;
   const code = urlParams.code;
 
