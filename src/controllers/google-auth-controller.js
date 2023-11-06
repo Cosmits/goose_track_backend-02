@@ -29,7 +29,7 @@ const googleAuth = async (req, res) => {
 
 const googleRedirect = async (req, res) => {
   const fullUrl = `${req.protocol}://${req.get('host')}${req.originalUrl}`;
-  const urlObj = URL.parse(fullUrl, true);
+  const urlObj = parse(fullUrl, true);
   const urlParams = urlObj.query;
   const code = urlParams.code;
 
