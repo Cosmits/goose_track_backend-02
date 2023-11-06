@@ -80,7 +80,7 @@ const googleRedirect = async (req, res) => {
     token: accessToken,
   });
 
-  return res.redirect(`${process.env.FRONTEND_URL}/?token=${accessToken}`);
+  return res.redirect(`${process.env.BASE_URL_FRONT}/?token=${accessToken}`);
 };
 
 export default {
