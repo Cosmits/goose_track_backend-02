@@ -29,7 +29,7 @@ The Goose Track Project Backend serves as the application's backend, offering a 
 
 
 ### Configuration of Environment Variables
-In the project's root directory, create a .env file and configure environment variables to suit your requirements. It's important to note that these are merely sample variables. For security reasons, refrain from including .env files in your repository. You can use .env.example as a reference for the configuration.
+In the project's root directory, create a .env file and configure environment variables to suit your requirements. It's important to note that these are merely sample variables. For security reasons, refrain from including .env files in your repository. You can use .env.example as a reference for the configuration. Need to configure the oauth configuration in [Google Cloud console](https://console.cloud.google.com/apis/credentials)
 
 
 ```plaintext
@@ -41,6 +41,8 @@ UKR_NET_EMAIL_FROM=mail.com
 UKR_NET_EMAIL_PASSWORD=pass
 BASE_URL_BACK=http://localhost
 BASE_URL_FRONT=http://localhost
+GOOGLE_CLIENT_ID=*.apps.googleusercontent.com
+GOOGLE_CLIENT_SECRET=123-456-7890
 
 ```
 
