@@ -47,7 +47,8 @@ GOOGLE_CLIENT_SECRET=123-456-7890
 ```
 
 ### Backend
-[Goose Track Project Backend](https://goose-track-backend-02.onrender.com/docs/)
+[Goose Track Backend Swagger](https://goose-track-backend-02.onrender.com/docs/)
+[Goose Track Backend Postman](https://documenter.getpostman.com/view/29075567/2s9YXiZgfD#c4670345-463e-48a6-9224-6ddd02a4ea5e)
 
 
 ### Frontend
