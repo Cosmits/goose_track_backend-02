@@ -5,6 +5,7 @@ import authenticate from '../../middleware/authenticate.js';
 import usersValidation from '../../middleware/validation/users-validation.js';
 import googleAuthController from '../../controllers/google-auth-controller.js';
 import upload from '../../middleware/upload.js';
+import isValidId from '../../middleware/validation/isValidId.js';
 
 const authRouter = Router();
 
@@ -44,7 +45,7 @@ authRouter.get("/verify/:verificationToken",
 
 authRouter.delete('/delete',
   authenticate,
-  usersValidation.userEmailValidate,
+  isValidId,
   userController.removeUserProfile);
 
 authRouter.get('/google',
