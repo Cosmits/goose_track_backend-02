@@ -63,6 +63,8 @@ const googleRedirect = async (req, res) => {
       userName: userData.data.name,
       avatarURL: userData.data.picture,
       password: hashedPassword,
+      verify: true,
+      verificationToken: "Verify",
     };
 
     user = await User.create(userBody);
