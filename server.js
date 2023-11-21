@@ -15,7 +15,8 @@ mongoose
   })
   .then(() => {
     console.log("Database connection successful");
-    app.listen(PORT, () => console.log(`Server start on PORT = ${PORT}`));
+    app.listen(PORT, () => console.log(`Server start on --> ${process.env.BASE_URL_BACK}:${PORT}`));
+    
   })
   .catch((error) => {
     console.log(`Server not running. Error message: ${error.message}`);

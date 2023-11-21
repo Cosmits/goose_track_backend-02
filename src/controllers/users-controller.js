@@ -152,6 +152,12 @@ const updateUserProfile = async (req, res) => {
     body.avatarURL = `${process.env.BASE_URL_BACK}/${avatarURL.replace("\\", "/")}`;
   }
 
+  if (body?.newPassword) { 
+    const hashedNewPassword = await bcrypt.hash(body.newPassword, 10);
+    body.password = hashedNewPassword
+    delete body.newPassword
+  }
+
   const updatedUser = await User.findByIdAndUpdate(_id, body, { new: true });
   if (!updatedUser) throw HttpError(404, "User not found")
 
@@ -163,32 +169,6 @@ const updateUserProfile = async (req, res) => {
     user: sendUserData,
   })
 }
-
-const changePassword = async (req, res) => {
-  const { _id, password } = req.user;
-  const { newPassword, oldPassword } = req.body;
-  if (newPassword === oldPassword) throw HttpError(400, 'New and old password cant be equals');
-
-  const isComparePassword = await bcrypt.compare(oldPassword, password);
-
-  if (!isComparePassword) throw HttpError(401, 'Password invalid');
-
-  const hashedNewPassword = await bcrypt.hash(newPassword, 10);
-
-  const user = await User.findByIdAndUpdate(
-    _id,
-    { password: hashedNewPassword },
-    { new: true }
-  );
-
-  if (!user) throw HttpError(404);
-
-  res.status(200).json({
-    status: "OK",
-    code: 200,
-    message: 'Password change success'
-  });
-};
 
 const removeUserProfile = async (req, res) => {
   const { _id } = req.user;
@@ -219,7 +199,5 @@ export default {
   verify: ctrlWrapper(verify),
   resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
   updateUserProfile: ctrlWrapper(updateUserProfile),
-  
-  changePassword: ctrlWrapper(changePassword),
   removeUserProfile: ctrlWrapper(removeUserProfile),
 };

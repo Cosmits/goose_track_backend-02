@@ -60,22 +60,7 @@ const userProfileSchema = Joi.object({
 });
 
 
-const changePasswordSchema = Joi.object({
-  newPassword: Joi.string()
-    .min(6)
-    .pattern(passwordRegexp)
-    .required()
-    .messages({
-      "any.required": "missing required password field, *(min length 6 characters, may use symbols A-Za-z0-9)",
-    }),
-  oldPassword: Joi.string()
-    .min(6)
-    .pattern(passwordRegexp)
-    .required()
-    .messages({
-      "any.required": "missing required password field, *(min length 6 characters, may use symbols A-Za-z0-9)",
-    }),
-});
+
 
 
 export default {
@@ -83,5 +68,4 @@ export default {
   userLoginValidation,
   userProfileSchema,
   userEmailSchema,
-  changePasswordSchema
 };
