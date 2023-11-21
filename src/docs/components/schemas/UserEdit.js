@@ -12,6 +12,11 @@ export const UserEdit = {
         description: "User's email",
         example: "email@gmail.com",
       },
+      newPassword: {
+        type: "string",
+        description: "Password",
+        example: "newPass123",
+      },
       phone: {
         type: "string",
         description: "User's phone",

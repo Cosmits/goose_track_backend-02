@@ -9,12 +9,9 @@ const userEmailValidate = validateBody(usersSchemas.userEmailSchema);
 
 const userProfileValidate = validateBody(usersSchemas.userProfileSchema);
 
-const changePasswordValidate = validateBody(usersSchemas.changePasswordSchema);
-
 export default {
   userRegisterValidate,
   userLoginValidate,
   userEmailValidate,
   userProfileValidate,
-  changePasswordValidate
 };

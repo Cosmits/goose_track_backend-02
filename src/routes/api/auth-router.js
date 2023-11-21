@@ -32,11 +32,6 @@ authRouter.patch("/edit",
   upload.single('avatarURL'),
   userController.updateUserProfile);
 
-authRouter.patch("/edit/password",
-  authenticate,
-  usersValidation.changePasswordValidate,
-  userController.changePassword);
-
 authRouter.post("/verify",
   usersValidation.userEmailValidate,
   userController.resendVerifyEmail);
